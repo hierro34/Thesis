@@ -1,0 +1,218 @@
+% Mathematic enviroments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+
+%Article 1
+\def\half{\frac{1}{2}}
+\def\boxeq#1{\frame{\parbox{\textwidth}{#1}}} 
+\def\Eq#1{(\ref{eq-#1})}
+\def\Lem#1{\ref{lem-#1}}
+\def\Fig#1{\ref{fig-#1}}
+\def\x{x}
+\def\cl{ \nonumber \\}
+\def\el{\nonumber}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\jumpt#1{\underline{\jump{#1}}}
+\def\mean#1{\{\! \!\{ #1\}\! \!\}}
+\def\meanpv#1{\{ #1\}}
+\def\meanhar#1{\langle#1\rangle}
+\def\Qq{ \Omega \times (0,t^*)}
+%\def\mean#1{\left\{\hskip -5pt\left\{#1\right\}\hskip -5pt\right\}}
+%\def\smean#1{\{\hskip -3pt\{#1\}\hskip -3pt\}}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\vhk{V^k_{h,0}}%{\mathcal{V}_h^k}
+\def\vhkperp{(V^k_{h,0})^\perp}%{\mathcal{V}_h^k}
+\def\vh1{V_{h}^1}%{\mathcal{V}_h^1}
+\def\osc{\textrm{osc}(\infty)}
+\def\smear{\textrm{smear}(\infty)}
+\def\osctwo{\textrm{osc}(2)}
+\def\smeartwo{\textrm{smear}(2)}
+\def\pe{\textrm{Pe}}
+\def\thn{\mathcal{T}_h^N}
+\def\th{\mathcal{T}_h}
+\def\tint#1{\int_0^{t^*} #1 {\rm d}t}
+\def\szpp{\kappa_h^\perp}%{\Pi_{SZ}^\perp}
+\def\sno#1{\tint{\| \delta^\frac{1}{2} \bb \cdot \szpp (\nabla  #1) \|^2 }}
+\def\tno#1{\| #1 \|(T) + \sno{#1}}
+\def\szp{\kappa_h}%{\Pi_{SZ}}
+\def\lp{\pi_{h}}
+\def\lpp{\pi_{h}^\perp}
+\def\nop{\Pi_{nod}}
+\def\nopp{\Pi_{nod}^\perp}
+\def\bb{\beta}
+
+%Article 2
+\def\half{\frac{1}{2}}
+\def\boxeq#1{\frame{\parbox{\textwidth}{#1}}} 
+\def\Eq#1{(\ref{eq-#1})}
+\def\Lem#1{(\ref{lem-#1})}
+\def\Fig#1{Fig. \ref{fig-#1}}
+\def\x{x}
+\def\cl{ \nonumber \\}
+\def\el{\nonumber}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\jumpt#1{\underline{\jump{#1}}}
+\def\mean#1{\{\! \!\{ #1\}\! \!\}}
+\def\meanpv#1{\{ #1\}}
+\def\meanhar#1{\langle#1\rangle}
+\def\avg#1{\left\langle #1 \right\rangle}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\vhk{V_{h,0}}%{\mathcal{V}_h^k}
+\def\vhkperp{V_{h,0}^\perp}%{\mathcal{V}_h^k}
+\def\vh1{V_{h}^1}%{\mathcal{V}_h^1}
+\def\vh{V_h}
+\def\osc{\textrm{osc}(\infty)}
+\def\smear{\textrm{smear}(\infty)}
+\def\osctwo{\textrm{osc}(2)}
+\def\smeartwo{\textrm{smear}(2)}
+\def\pe{\textrm{Pe}}
+\def\nh{\mathcal{N}_h}
+\def\tint#1{\displaystyle\int_0^T #1 {\rm d}t}
+\def\szpp{\kappa_h^\perp}%{\Pi_{SZ}^\perp}
+\def\sno#1{\tint{\| \delta^\frac{1}{2} \bb \cdot \szpp (\nabla  #1) \|^2 }}
+\def\tno#1{\| #1 \|(T) + \sno{#1}}
+\def\szp{\kappa_h}%{\Pi_{SZ}}
+\def\lp{\pi_{h}}
+\def\lpp{\pi_{h}^\perp}
+\def\nop{\Pi_{nod}}
+\def\nopp{\Pi_{nod}^\perp}
+\def\bb{\beta}
+\def\infno#1#2{\| #1 \|_{L^\infty(#2)}}
+\def\infnok#1{\infno{#1}{K}}
+\def\sgn#1{\textrm{sign}(#1)}
+\def\half{\frac{1}{2}}
+\def\boxeq#1{\frame{\parbox{\textwidth}{#1}}} 
+\def\Eq#1{(\ref{eq-#1})}
+\def\Lem#1{(\ref{lem-#1})}
+\def\Fig#1{Fig. \ref{fig-#1}}
+\def\x{x}
+\def\cl{ \nonumber \\}
+\def\el{\nonumber}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\jumpt#1{\underline{\jump{#1}}}
+\def\mean#1{\{\! \!\{ #1\}\! \!\}}
+\def\meanpv#1{\{ #1\}}
+\def\meanhar#1{\langle#1\rangle}
+\def\avg#1{\left\langle #1 \right\rangle}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\vhk{V_{h,0}}%{\mathcal{V}_h^k}
+\def\vhkperp{V_{h,0}^\perp}%{\mathcal{V}_h^k}
+\def\vh1{V_{h}^1}%{\mathcal{V}_h^1}
+\def\vh{V_h}
+\def\osc{\textrm{osc}(\infty)}
+\def\smear{\textrm{smear}(\infty)}
+\def\osctwo{\textrm{osc}(2)}
+\def\smeartwo{\textrm{smear}(2)}
+\def\pe{\textrm{Pe}}
+\def\nh{\mathcal{N}_h}
+\def\tint#1{\displaystyle\int_0^T #1 {\rm d}t}
+\def\szpp{\kappa_h^\perp}%{\Pi_{SZ}^\perp}
+\def\sno#1{\tint{\| \delta^\frac{1}{2} \bb \cdot \szpp (\nabla  #1) \|^2 }}
+\def\tno#1{\| #1 \|(T) + \sno{#1}}
+\def\szp{\kappa_h}%{\Pi_{SZ}}
+\def\lp{\pi_{h}}
+\def\lpp{\pi_{h}^\perp}
+\def\nop{\Pi_{nod}}
+\def\nopp{\Pi_{nod}^\perp}
+\def\bb{\beta}
+\def\infno#1#2{\| #1 \|_{L^\infty(#2)}}
+\def\infnok#1{\infno{#1}{K}}
+\def\sgn#1{\textrm{sign}(#1)}
+
+%Paper 3		
+\def\comment#1{{\color{red} #1}}
+\def\ahierro#1{{\color{blue} #1}}
+\def\pkus#1{{\color{green} #1}}
+\def\half{\frac{1}{2}}
+\def\boxeq#1{\frame{\parbox{\textwidth}{#1}}} 
+\def\Eq#1{(\ref{eq-#1})}
+\def\Lem#1{(\ref{lem-#1})}
+\def\Fig#1{Fig. \ref{fig-#1}}
+\def\Alg#1{Alg. \ref{alg-#1}}
+\def\x{x}
+\def\cl{ \nonumber \\}
+\def\el{\nonumber}
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\jumpt#1{\underline{\jump{#1}}}
+\def\mean#1{\{\! \!\{ #1\}\! \!\}}
+\def\meanpv#1{\{ #1\}}
+\def\meanhar#1{\langle#1\rangle}
+\def\avg#1{\left\langle #1 \right\rangle}
+
+\def\jumpl{\lbrack\!\lbrack}
+\def\jumpr{\rbrack\!\rbrack}
+\def\jump#1{\jumpl #1 \jumpr}
+\def\vhk{V_{m,0}}
+\def\vhkperp{V_{m,0}^\perp}
+\def\vh1{V_{m}^1}
+\def\vh{V_m}
+\def\v#1{V_{#1}}
+\def\osc{\textrm{osc}(\infty)}
+\def\smear{\textrm{smear}(\infty)}
+\def\osctwo{\textrm{osc}(2)}
+\def\smeartwo{\textrm{smear}(2)}
+\def\pe{\textrm{Pe}}
+\def\nh{\mathcal{N}_h}
+\def\tint#1{\displaystyle\int_0^T #1 {\rm d}t}
+\def\szpp{\kappa_h^\perp}
+\def\sno#1{\tint{\| \delta^\frac{1}{2} \bb \cdot \szpp (\nabla  #1) \|^2 }}
+\def\tno#1{\| #1 \|(T) + \sno{#1}}
+\def\szp{\kappa_h}
+\def\lp{\pi_{h}}
+\def\lpp{\pi_{h}^\perp}
+\def\nop{\Pi_{nod}}
+\def\nopp{\Pi_{nod}^\perp}
+\def\bb{\beta}
+\def\infno#1#2{\| #1 \|_{L^\infty(#2)}}
+\def\infnok#1{\infno{#1}{K}}
+\def\sgn#1{\textrm{sign}(#1)}
+\def\aperr{\eta}
+\def\aperrmk{\aperr_m^i}
+\def\prerr{E}
+\def\prerrmk{E_m^i}
+\def\mesh#1{\mathcal{T}_{#1}}
+\def\meshm{\mesh{m}}
+\def\faces#1{\mathcal{F}_{#1}}
+\def\facesm{\faces{m}}
+\def\grad{\mathcal{G}}
+\def\gradmk{\grad_m^i}
+\def\prgrad{{G}}
+\def\prgradmk{\prgrad_m^i}
+\def\shockf{\mathcal{S}}
+\def\shockfmk{\shockf_m^i}
+\def\reff{\mathcal{R}}
+\def\reffmk{\reff_m^i}
+\def\refp{\mathcal{P}}
+\def\refpmk{\refp_m^i}
+\def\damp{\omega}
+\def\dampmk{\damp_k}
+\def\maxdamp{\damp_{\max}}
+\def\mindamp{\damp_{\min}}
+\def\adiff{\varepsilon}
+\def\setfaces{\mathcal{E}_m}
+\def\setintfaces{\mathcal{E}_m^0}
+\def\nelem{N^{\rm el}_m}
+\def\pnelem{N^{\rm el}_{m-1}}
+\def\elem{{K_i}}
+\def\refidfunction#1{F_{#1}}
+\def\prevID{{F{m}(i)}}
+\def\numchilds{n_c}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\def\noteSB#1{{\color{red}**** #1 ****}}	
