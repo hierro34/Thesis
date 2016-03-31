@@ -22,6 +22,5 @@
 *.out
 *.synctex.gz
 *.zip
-*.pdf
 *.xml
 template/

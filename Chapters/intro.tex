@@ -1,0 +1,12 @@
+\chapter{Introduction and Motivation}
+\label{chap-intro}
+
+
+How to deal with the shocks. In the {author's} masther thesis \ref{masterthesis}, it can be appreciated how some very different shock capturing techniques perform with diferent methods, continuous and discontinuous Galerkin with low and high order. The test were performed for one-dimensional cases but they already shed light some how effective some of these techniques were in different paradigms.\\
+
+One important revelation was that, contrary to what was expected, the discontinuous Galerkin techniques were not more effective in capturing the discontinuities than the continuous method. This was due to the fact that the interior penalty terms would not let the method to capture a pure discontinuity between two elements and this induce spurious oscillations around the discontinuity or sharp layer.\\
+
+In \ref{masterthesis} the Gradient Jump Viscosity (GJV) method was already introduced for the one-dimensional case as an adaptation of the method proposed by \cite{burman_nonlinear_2007} for the Burgers' equation.
+
+\section{Structure of the document}
+Chapters \ref{chap-paper1}, \ref{chap-paper2} and \ref{chap-paper3} are based on the \comment{author's} articles \cite{badia_stabilized_2012}, \cite{badia_discrete_2015} and \cite{paper3} respectively. The three chapters follow the structure of the publications and, thus, are selfcontained.

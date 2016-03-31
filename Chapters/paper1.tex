@@ -673,32 +673,32 @@ u_0(x) = \left\{
 % SB note: Check this figure: 1) No stab is not a good label... one would think no stab but you have put nonlinear GJV stab... Next, SZ and SZ3 are not appropriate labels. We should use NPS (nodal proj stab) and NPS+GJV (w/ shock capturing)... and explain every method in the text... We have called the NPS stab and now we call SZ stab... non consistent
 % Labels should be clearly stated in the caption of the figure.
 This test is being used to show the positive effect of the combined use of linear stabilization with a shock-capturing technique. At this point, the definition of the shock-capturing technique, namely nGJV or bGJV in Algorithm \ref{alg-wNPS-GJV}, is not important since both definitions reduce to the one in \cite{burman_nonlinear_2007} for the 1$D$ case. In Fig. \Fig{pulse1} we show the results obtained when solving this problem with $200$ FEs and using the Crank-Nicolson time integration  with CFL $0.5$, a semi-implicit treatment of the nonlinearity and no mass lumping. Let us recall that the monotonic methods preserve the DMP when no mass lumping is performed. The parameters used in the GJV stabilization are $c_{\rm gjv} = \tilde c_{\rm gjv} =0.5$ (which is the minimum value for which the strong DMP property holds) and $q=10$. It is clear that the combination of the artificial diffusion and the weighted NPS stabilization with GJV shock-capturing outperforms each of them separately. One can observe in the right part of Fig. \Fig{pulse1} the terracing effect on the solution obtained when no linear stabilization is used.
-\begin{figure}
-\centering
-\subfigure[Results for GJV shock-capturing, NPS stabilization and both combined with weighting (wNPS-GJV). ]{\includegraphics[width=9.65cm]{Figures/paper1/test20_p1_200.pdf}} %
-\subfigure[Terracing effect.]{\includegraphics[clip=true, trim=3.8cm 0cm 3.1cm 0cm,width=4.35cm]{Figures/paper1/test20_p1_200_d2.pdf}} %
-\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=10$, $p=1$ and $N=200$, Crank-Nicolson, CFL=0.5 and no mass lumping.}\label{fig-pulse1}
-\end{figure}
+%\begin{figure}
+%\centering
+%\subfigure[Results for GJV shock-capturing, NPS stabilization and both combined with weighting (wNPS-GJV). ]{\includegraphics[width=9.65cm]{Figures/paper1/test20_p1_200.pdf}} %
+%\subfigure[Terracing effect.]{\includegraphics[clip=true, trim=3.8cm 0cm 3.1cm 0cm,width=4.35cm]{Figures/paper1/test20_p1_200_d2.pdf}} %
+%\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=10$, $p=1$ and $N=200$, Crank-Nicolson, CFL=0.5 and no mass lumping.}\label{fig-pulse1}
+%\end{figure}
 
 The same test can be used to check the dependence of the DMP property on the variable $c_{\rm gjv}$ in the transport problem.  For this test, we have used the explicit forward Euler method for the integration in time with mass lumping and a CFL of $0.01$ in such a way that the error of the integration in time can be neglected. Fig. \Fig{SZ_AD_2} shows the results obtained when solving problem \Eq{eqtr}-\Eq{trinc} with  wNPS-GJV in Algorithm \ref{alg-wNPS-GJV}. We notice that the larger the value of $q$ the sharper are the oscillations that appear for $c_{\rm gjv} < 0.5$, so we have used $q=100$ to show the results. It is clear that the threshold $c_{\rm gjv} = 0.5$ is sharp; overshoots and undershoots appear in the solution when $c_{\rm gjv}$ is slightly smaller than $0.5$, violating the TVD property.
   %The results obtained using the SC without any linear stabilization are displayed in Fig. \ref{tttPure_AD}. As we expected $\nu = 0.5$ is a threshold for the DMP property. Moreover, in order to avoid the error of the integration in time we have used CFL$=0.01$.
-\begin{figure}%
-\centering
-\subfigure[$c_{\rm gjv}  = 0.49,0.5,0.51$]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ.pdf} %
-\label{fig-SZ_AD_2_s1} }%
-\subfigure[Detail of \subref{fig-SZ_AD_2_s1}]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ1d.pdf}  }%
-\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=100$, $p=1$ and $N=100$. Forward Euler with CFL$=0.01$ and mass lumping.}\label{fig-SZ_AD_2}%
-\end{figure}
+%\begin{figure}%
+%\centering
+%\subfigure[$c_{\rm gjv}  = 0.49,0.5,0.51$]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ.pdf} %
+%\label{fig-SZ_AD_2_s1} }%
+%\subfigure[Detail of \subref{fig-SZ_AD_2_s1}]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ1d.pdf}  }%
+%\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=100$, $p=1$ and $N=100$. Forward Euler with CFL$=0.01$ and mass lumping.}\label{fig-SZ_AD_2}%
+%\end{figure}
 
 
 \subsection{Test 2: Convergence to a smooth solution}
 
 In order to check that the order of convergence is not affected by the stabilization added, we will evaluate the error reduction for a sinusoidal when refining the mesh. The test consists in solving the 2$D$ transport equation \Eq{probcont} with $\beta = (1,0)$, $f=0$, initial solution $u_0(x,y) = \sin(2\pi x)$ in $\Omega=[0,1]\times[0,1]$ and periodic boundary conditions in the $x$ direction. The solution presents  maximum and minimum values along two lines ($x=\frac{1}{4}$ and $x=\frac{3}{4}$ respectively for $t=0$) that activate the shock-capturing. The desired behaviour is that this activation does not affect the convergence of the method. The meshes used for the test are regular triangular meshes of size $N_h\times N_h(\times 2)$. The $L^2(\Omega)$ errors are plotted in Fig. \Fig{smooth_sol}. The label $cG$ stands for the continuous Galerkin scheme without any stabilization and is the reference for the desired convergence one wants to attain when solving smooth solutions. It is clear that the convergence order is spoiled when using shock-capturing techniques without any linear stabilization, specially when using the bGJV method. On the other hand the convergence is maintained when both methods are combined with linear stabilization, either wNPS or SUPG. This test provides another motivation to combine linear and nonlinear stabilization, i.e., to have superior convergence in smooth regions.
 
-\begin{figure}
-\includegraphics[clip=true, trim=0cm 9cm 0cm 9cm,width=14cm]{Figures/paper1/smooth_conv_test_2D.pdf}%
- \caption{Test 2. $L^2(\Omega)$ error vs size of the mesh. Crank-Nicolson, $t=1$, $\Delta t = 10^{-3}$. No Mass lumping.}\label{fig-smooth_sol}
- \end{figure}
+%\begin{figure}
+%\includegraphics[clip=true, trim=0cm 9cm 0cm 9cm,width=14cm]{Figures/paper1/smooth_conv_test_2D.pdf}%
+ %\caption{Test 2. $L^2(\Omega)$ error vs size of the mesh. Crank-Nicolson, $t=1$, $\Delta t = 10^{-3}$. No Mass lumping.}\label{fig-smooth_sol}
+ %\end{figure}
 
 %% \subsection{Test 3: High Order}
 
@@ -806,13 +806,12 @@ The results reported in Fig. \Fig{triangle1} are at the final stage of the compu
 \end{align*}
 We compute the mean value of the parameter ${\rm osc(t)}$ in bunches of $50$ time steps and the time evolution of this quantity for the different methods is plotted in Fig \Fig{osc}. It can be appreciated that the method with the smallest overshoots and undershoots is nGJV without any linear stabilization; when the wNPS is added, the order of the oscillations is still very low. We remark that the DMP is not exactly attained for the nGJV method since we are considering non-acute meshes, no mass lumping, and inexact time integration. bGJV shows smaller oscillations when combined with SUPG stabilization than with the wNPS; it is noticeable the good behavior of bGJV with SUPG compared to the traditional RV-SUPG approach. Focusing on the first time steps, where the stronger oscillations occur, RV and bGJV present strong violations of the DMP (either wiht SUPG and with wNPS linear stabilization). These oscillations remain for SUPG-RV and wNPS-bGJV methods during the whole computation. This oscillatory behaviour is clearly observed  in Fig. \Fig{osrv}, where we plot the solutions obtained  at time $t=0.01$. 
 
-\begin{figure}%
-\centering
-\subfigure[${\rm osc(t)}$ in time]{\includegraphics[clip=true,  trim=3cm 9cm 4cm 9cm,width=7.9cm]{Figures/paper1/osc_time_tr.pdf}\label{fig-osc}}%
-%\subfigure[${\rm osc(t)}$ in time]{\includegraphics[clip=true,  trim=3cm 9cm 4cm 9cm,width=7.9cm]{Figures/paper1/osc_time_tr_new.pdf}}%
-\subfigure[{SUPG-RV, $t = 0.01 $}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_T_001.png}\label{fig-osrv}}\\%
-\caption{Test 3. Evolution of the parameter ${\rm osc}$. Detail of the solution for the SUPG-RV at $t=0.01$. Space discretization with $p=1$ and $250\times 250 \times 2$ triangular mesh. Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and no mass lumping.}\label{fig-osctime}
-\end{figure}
+%\begin{figure}%
+%\centering
+%\subfigure[${\rm osc(t)}$ in time]{\includegraphics[clip=true,  trim=3cm 9cm 4cm 9cm,width=7.9cm]{Figures/paper1/osc_time_tr.pdf}\label{fig-osc}}%
+%\subfigure[{SUPG-RV, $t = 0.01 $}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_T_001.png}\label{fig-osrv}}\\%
+%\caption{Test 3. Evolution of the parameter ${\rm osc}$. Detail of the solution for the SUPG-RV at $t=0.01$. Space discretization with $p=1$ and $250\times 250 \times 2$ triangular mesh. Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and no mass lumping.}\label{fig-osctime}
+%\end{figure}
 
 %Out of these results, we can draw some conclusions. In the first stages of the computation, i.e. the results for $t = 10^{-2} \, {\rm s}$ in Figs. \Fig{square001}-\Fig{triangle001} and Table \ref{tab-triangle}, we observe that traditional SUPG-RV methods exhibit the strongest oscillations. The bGJV shock-capturing technique, both with SUPG and  wNPS stabilization, presents similar oscillations on the triangular mesh. However, on the quadrilateral mesh, SUPG-bGJV leads to excellent results whereas  wNPS-bGJV is over-dissipative. It is clear out of these results, that EV and nGJV (alone or with  wNPS stabilization) are the best methods for this case. It is remarkable the value of the largest oscillation of the nGJV method in both meshes and the  wNPS-nGJV method in the quadrilateral mesh. We remark that the DMP cannot be exactly attained since we are considering non-acute meshes, no mass lumping and inexact time integration.
 
