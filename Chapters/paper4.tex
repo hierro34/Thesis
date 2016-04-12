@@ -1,0 +1,17 @@
+\chapter{Monotonicity preserving methods for discontinuous Galerkin Methods}
+
+We define a \textit{nonnegative type} matrix as any $N\times N$ matrix $A=\{a_{ij}\}$ such that
+\begin{align}
+&a_{ij} \leq 0  & & {\rm for}\, i\neq j, \, i=1,\cdots,N_R, j=1,\cdots,N \\
+&\sum_{j=1}^{N} a_{ij} \geq 0 & &{\rm for}\, i=1,\cdots,N_R
+\end{align}
+We define $A_R = \{a_{ij}\}$ with $i,j=1,\cdots, N_R$.
+In \cite{codina_discontinuity-capturing_1993}, Codina proved that
+\begin{theorem}[Sufficient condition for DMP]
+	If A is of \textit{non-negative type}, $A_R$ is non singular and $b_i\leq 0$ for $i=1,\cdots,N_r$ then 
+	\begin{align*}
+	Ax=b & \Rightarrow & \exists m\in \{N_R+1,\cdots,N\} \, s.t. \, \max_{i\in\{1,\cdots,N\}}\{x_i\}=x_m
+	\end{align*}
+\end{theorem}
+
+Somehow this is changed to the column property and dG methods already have such property.
