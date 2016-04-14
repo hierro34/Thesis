@@ -15,3 +15,95 @@ In \cite{codina_discontinuity-capturing_1993}, Codina proved that
 \end{theorem}
 
 Somehow this is changed to the column property and dG methods already have such property.
+
+\section{Introduction}
+
+The discontinuous Galerkin scheme (art 009).\\
+
+The DMP property. Artificial diffusion techniques (art 009).\\
+
+The DMP property. Properties of the matrices (kuzmin 2015-2016).\\
+
+The unexplored field of dG methods\\
+
+The aim of this paper.\\
+
+The structure of the paper.\\
+
+\section{The Convection-Diffusion Problem and its Discretization}
+
+The problem we are going to solve.\\
+
+The potential apparition of wiggles around layers.\\
+
+\subsection{Notation}
+
+$\ndofs$\\
+$\Kp$\\
+$\setneighbours$\\
+$\shapeik$\\
+$\support{i}$\\
+
+
+
+\subsection{Weak form and the interior penalty discontinuous Galerkin approximation}
+The symmetric interior penalty discontinuous Galerkin (IPDG) method with nonlinear artificial viscosity stabilization reads as
+\begin{align}\label{eq-dscrtpbm}
+{\rm Find}\quad u_h\in V_h \quad {\rm such}\,{\rm that }\quad a_h(u_h,v_h) = l(v_h) \quad \forall v_h\in V_h,
+\end{align}
+where 
+\begin{align}\label{eq-bform}
+\begin{split}
+a_h&(u_h,v_h) =  \displaystyle\sum\limits_{\elem \in \thm} \int_\elem\left( \mu   \nabla u_h \nabla v_h - 
+u_h  \beta \cdot \nabla v_h\right) \\
+& - \sum\limits_{F\in \setfaces}  \int_{F} \mu (\jump{u_h}\mean{ \nabla v_h} + \mean{\nabla u_h} \jump{v_h})    +  \sum\limits_{F\in \setfaces}  \int_{F} c^{\rm ip} {h}_F^{-1} \mu\jump{  u_h}\jump{  v_h}   \\
+&+ \sum\limits_{F\in \setfaces{ \setminus\partial\Omega^-}}  \int_{F}   \mean{\beta u_h}\jump{v_h} + c^{{\rm bms}} \sum\limits_{F\in \setintfaces}  \int_{F}  |\beta|  \jump{u_h} \jump{v_h} %\nonumber
+\end{split}
+\end{align}
+and 
+\begin{align}\label{eq-rhs}
+\begin{split}
+l(v_h) = & \displaystyle\sum\limits_{\elem \in \thm} (f_h,v_h)_K - \sum\limits_{F\in\partial \Omega^-}\int_{F} \beta \cdot n_{\partial\Omega}g_h v_h  \\
+& +\sum\limits_{F\in \partial \Omega}\int_F \mu g_h \mean{ \nabla v_h} \cdot n_{\partial\Omega}
+-\sum\limits_{F\in \partial \Omega}\int_F c^{\rm ip} h_F^{-1} \meanhar{\mu+\varepsilon_h(u_h)} g_h v_h , 
+\end{split}
+\end{align}
+
+$\spacebilinearform$\\
+$\rhs$
+
+\section{The Discrete Maximum principle}
+
+In this section we will introduce the desired properties that we will expect our discrete problem to fulfill.
+
+\subsection{The local discrete extrema}
+
+Recovering the notation in \cite{badia_discrete_2015}, we will define the local discrete extrema as follows.
+
+ \begin{definition}[local discrete extremum]
+ 	The function $u_h\in V_h$ has a local discrete minimum (resp., maximum)  on node $x_i$ in $K$ if $u_i^K \leq u_h(x)$ (resp., $u_i^K \geq u_h(x)$) $\forall x\in \Omega_i$.
+ \end{definition}
+ 
+ In particular, when using linear elements, it is this is equivalent to say that $u_i^K\leq u_j^\Kp$ for any pair $\{j,\Kp\}\in \setneighbours(i,K) $.
+
+\subsection{The space matrix integration}
+
+Given a matrix-vector problem of the form:
+
+\begin{align*}
+ \mathbb{Au} = \mathbb{f}
+\end{align*}
+
+with $ \mathbb{A}\in \mathbb{R}^\ndofs\times\mathbb{R}^\ndofs$ and $ \mathbb{u}, \mathbb{f}\in\mathbb{R}^\ndofs$ corresponding to the space problem, that is, given $a=\iktoa(i,K)$ and $b=\iktoa(j,\Kp)$, the components of $ \mathbb{A}$ and $f$ are defined by $A_{ab}=\spacebilinearform(\shapeik,\shape{j}{\Kp})$ and $f_a=\rhs(\shapeik)$. 
+
+\begin{definition}
+	We will say that the matrix $ \mathbb{A}$ enjoys the \textit{Discrete Maximum Principle} (DMP) if, given for any interior node $x_i$ and any $K\in\support{i}$, the following hold true: if $u_h$ has a local maximum (resp. minimum) on $x_i$ in $K$ and $a=\iktoa(i,K)$, then $f_a \geq 0$ ($f_a\leq0$ resp.).
+\end{definition}
+
+It is clear that, since we can control the sign of $ \mathbb{f}$ by knowing the sign of the source term $f$, it is clear that this is to say that given a negative (positive) source term the solution of the discrete problem will not present any local discrete maximum (minimum) in the interior of the domain.
+
+
+As it is shown in \cite{Jesus}, in order to ensure a DMP it is enough to construct a matri
+
+
+
