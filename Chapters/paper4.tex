@@ -91,16 +91,16 @@ Recovering the notation in \cite{badia_discrete_2015}, we will define the local 
 Given a matrix-vector problem of the form:
 
 \begin{align*}
- \mathbb{Au} = \mathbb{f}
+ \mathbf{Au} = \mathbf{f}
 \end{align*}
 
-with $ \mathbb{A}\in \mathbb{R}^\ndofs\times\mathbb{R}^\ndofs$ and $ \mathbb{u}, \mathbb{f}\in\mathbb{R}^\ndofs$ corresponding to the space problem, that is, given $a=\iktoa(i,K)$ and $b=\iktoa(j,\Kp)$, the components of $ \mathbb{A}$ and $f$ are defined by $A_{ab}=\spacebilinearform(\shapeik,\shape{j}{\Kp})$ and $f_a=\rhs(\shapeik)$. 
+with $ \mathbf{A}\in \mathbb{R}^\ndofs\times\mathbb{R}^\ndofs$ and $ \mathbf{u}, \mathbf{f}\in\mathbb{R}^\ndofs$ corresponding to the space problem, that is, given $a=\iktoa(i,K)$ and $b=\iktoa(j,\Kp)$, the components of $ \mathbf{A}$ and $f$ are defined by $A_{ab}=\spacebilinearform(\shapeik,\shape{j}{\Kp})$ and $f_a=\rhs(\shapeik)$. 
 
 \begin{definition}
-	We will say that the matrix $ \mathbb{A}$ enjoys the \textit{Discrete Maximum Principle} (DMP) if, given for any interior node $x_i$ and any $K\in\support{i}$, the following hold true: if $u_h$ has a local maximum (resp. minimum) on $x_i$ in $K$ and $a=\iktoa(i,K)$, then $f_a \geq 0$ ($f_a\leq0$ resp.).
+	We will say that the matrix $ \mathbf{A}$ enjoys the \textit{Discrete Maximum Principle} (DMP) if, given for any interior node $x_i$ and any $K\in\support{i}$, the following hold true: if $u_h$ has a local maximum (resp. minimum) on $x_i$ in $K$ and $a=\iktoa(i,K)$, then $f_a \geq 0$ ($f_a\leq0$ resp.).
 \end{definition}
 
-It is clear that, since we can control the sign of $ \mathbb{f}$ by knowing the sign of the source term $f$, it is clear that this is to say that given a negative (positive) source term the solution of the discrete problem will not present any local discrete maximum (minimum) in the interior of the domain.
+It is clear that, since we can control the sign of $ \mathbf{f}$ by knowing the sign of the source term $f$, it is clear that this is to say that given a negative (positive) source term the solution of the discrete problem will not present any local discrete maximum (minimum) in the interior of the domain.
 
 
 As it is shown in \cite{Jesus}, in order to ensure a DMP it is enough to construct a matri
