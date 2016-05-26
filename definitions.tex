@@ -35,7 +35,8 @@
 \def\osctwo{\textrm{osc}(2)}
 \def\smeartwo{\textrm{smear}(2)}
 \def\pe{\textrm{Pe}}
-\def\thn{\mathcal{T}_h^N}
+\def\thn{\mathcal{T}_h}
+\def\thm{\mathcal{T}_m}
 \def\th{\mathcal{T}_h}
 \def\tint#1{\int_0^{t^*} #1 {\rm d}t}
 \def\szpp{\kappa_h^\perp}%{\Pi_{SZ}^\perp}
@@ -68,9 +69,6 @@
 \def\jumpl{\lbrack\!\lbrack}
 \def\jumpr{\rbrack\!\rbrack}
 \def\jump#1{\jumpl #1 \jumpr}
-\def\vhk{V_{h,0}}%{\mathcal{V}_h^k}
-\def\vhkperp{V_{h,0}^\perp}%{\mathcal{V}_h^k}
-\def\vh1{V_{h}^1}%{\mathcal{V}_h^1}
 \def\vh{V_h}
 \def\osc{\textrm{osc}(\infty)}
 \def\smear{\textrm{smear}(\infty)}
@@ -110,9 +108,6 @@
 \def\jumpl{\lbrack\!\lbrack}
 \def\jumpr{\rbrack\!\rbrack}
 \def\jump#1{\jumpl #1 \jumpr}
-\def\vhk{V_{h,0}}%{\mathcal{V}_h^k}
-\def\vhkperp{V_{h,0}^\perp}%{\mathcal{V}_h^k}
-\def\vh1{V_{h}^1}%{\mathcal{V}_h^1}
 \def\vh{V_h}
 \def\osc{\textrm{osc}(\infty)}
 \def\smear{\textrm{smear}(\infty)}
@@ -159,10 +154,10 @@
 \def\jumpl{\lbrack\!\lbrack}
 \def\jumpr{\rbrack\!\rbrack}
 \def\jump#1{\jumpl #1 \jumpr}
-\def\vhk{V_{m,0}}
-\def\vhkperp{V_{m,0}^\perp}
-\def\vh1{V_{m}^1}
-\def\vh{V_m}
+\def\vmk{V_{m,0}}
+\def\vmkperp{V_{m,0}^\perp}
+\def\vm1{V_{m}^1}
+\def\vm{V_m}
 \def\v#1{V_{#1}}
 \def\osc{\textrm{osc}(\infty)}
 \def\smear{\textrm{smear}(\infty)}
@@ -216,3 +211,29 @@
 \def\numchilds{n_c}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \def\noteSB#1{{\color{red}**** #1 ****}}	
+
+% New commands
+\def\facet{F}
+
+%paper 4
+\def\ndofs{{N^{\rm  dof}}}
+\def\Kp{{K'}}
+\def\setneighbours{\mathcal{N}_h}
+\def\spacebilinearform{A_h}
+\def\pertbform{\bar{A}_h}
+\def\rhs{l_h}
+\def\shape#1#2{\varphi_{#1}^{#2}}
+\def\shapeik{\shape{i}{K}}
+\def\shapejkp{\shape{j}{\Kp}}
+\def\iktoa{\mathcal{D}}
+\def\support#1{\Omega_i}
+\def\ikpair{\{i,K\}}
+\def\jkppair{\{j,\Kp\}}
+\def\dofsupport{\mathcal{N}_h}
+\def\dofsupportik{\dofsupport(i,K)}
+\def\uik{u_a}
+\def\ujkp{u_{\iktoa(\jkppair)}}
+%\def\ujkp{u_j^\Kp}
+\def\graphviscosity{\nu_{a,\iktoa(\jkppair)}}
+\def\graphviscosityaa{\nu_{aa}}
+\def\graphviscosityab{\nu_{ab}}

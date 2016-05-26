@@ -1,19 +1,27 @@
 \begin{symbols}
 
 \multicolumn{3}{c}{{\Large \textbf{Lower-case Roman}}}\\
-$d$ & space dimension\\
-$n$ & unit outside normal\\
+$d$ & space dimension& \\
+$n$ & unit outside normal& \\
 $u(\x,t)$      & variable of interest       &  \\
 
 \addlinespace % Gap to separate the Roman lower from Roman Capital
 \addlinespace
 
-\multicolumn{3}{c}{{\Large \textbf{Upper-case Roman}}}\\
+\multicolumn{3}{c}{{\Large \textbf{Upper-case Roman}}} \\
+$\mathcal{N}_h(K)$ & Set of interpolation nodes & \\
+$\thn$ & finite element mesh & \\
+$\thm$ & finite element adaptive mesh at adaptivity step $m$ &\\	
+$\vh$ & piecewise polynomial space of discrete solutions (continuous or discontinuous)& \\
+$V_h^k$ & piecewise polynomial space of order $k$  &\\
+$V_{h,0}$ & piecewise polynomial space with homogeneous Dirichlet boundary conditions  &\\
+$\vm$ & piecewise polynomial space of discrete solutions at the $m$ adaptive step & \\
+
 \addlinespace % Gap to separate the Roman lower from Roman Capital
 \addlinespace
 
-\multicolumn{3}{c}{{\Large \textbf{Lower-case Greek}}}\\
-$\beta$ & convection term\\
+\multicolumn{3}{c}{{\Large \textbf{Lower-case Greek}}} \\
+$\beta$ & convection term& \\
 $ \tau_c $ & continuity stabilization parameter & \\
 
 \addlinespace % Gap to separate the Greek lower symbols from the Greek Capital
@@ -23,6 +31,7 @@ $ \tau_c $ & continuity stabilization parameter & \\
 $\Omega$ & domain \\
 $\Gamma$  & domain boundary ($\Gamma=\partial\Omega$) & \\
 $\Gamma_{\rm in}$ & inflow boundary ($\Gamma_{\rm in} := \{ x \in \partial \Omega: \, \beta(x) \cdot n(x) < 0\}$)\\
+
 \addlinespace % Gap to separate the Greek capital symbols from the subscripts
 \addlinespace
 
@@ -30,5 +39,12 @@ $\Gamma_{\rm in}$ & inflow boundary ($\Gamma_{\rm in} := \{ x \in \partial \Omeg
 $ (\cdot)_h $ & Finite Element component & \\
 $ (\cdot)_{n+1} $ & current time step & \\
 $ (\cdot)_n $ & previous time step & \\
+\addlinespace % Gap to separate the Greek lower symbols from the Greek Capital
+\addlinespace
 
+\multicolumn{3}{c}{{\Large \textbf{Other symbols}}}\\
+$\jump{\cdot}$ & Jump operator & \\
+$\mean{\cdot}$ & Average operator & \\
+$\|\cdot\|$ & $L^2(\Omega)$ norm & \\
+$\|\cdot\|_\omega$ & $L^2(\omega)$ norm for $\omega\in\Omega$ & \\
 \end{symbols}
