@@ -9,7 +9,14 @@ $u(\x,t)$      & variable of interest       &  \\
 \addlinespace
 
 \multicolumn{3}{c}{{\Large \textbf{Upper-case Roman}}} \\
+$\facet$ & facet & \\
+$H^\beta(\Omega)$ & Space of solutions of the weak transport problem &\\
+& { ($H^\beta(\Omega) := \{ u \in L^2(\Omega): \,  \nabla \cdot (\beta u) \in L^2(\Omega) \}$)}\\
+$K$, $K_i$ & elements of the mesh (in Chaper \ref{chap-paper3} they are ordered by convenience of the analysis) & \\
+$K^+_\facet$/$K^-_\facet$ & elements that surround facet $\facet$ ($\facet = \partial K^+_\facet\cap K^-_\facet$ ) & \\
 $\mathcal{N}_h(K)$ & Set of interpolation nodes & \\
+$P_k(\omega)$ & space of complete polynomials of degree $k$ on $\omega$ & \\
+$Q_k(\omega)$ & space of polynomials with maximum degree $k$ in $\omega$\\
 $\thn$ & finite element mesh & \\
 $\thm$ & finite element adaptive mesh at adaptivity step $m$ &\\	
 $\vh$ & piecewise polynomial space of discrete solutions (continuous or discontinuous)& \\
@@ -29,6 +36,7 @@ $ \tau_c $ & continuity stabilization parameter & \\
 
 \multicolumn{3}{c}{{\Large \textbf{Upper-case Greek}}}\\
 $\Omega$ & domain \\
+$\Omega_i$ & macroelement associated to node $x_i$ & \\
 $\Gamma$  & domain boundary ($\Gamma=\partial\Omega$) & \\
 $\Gamma_{\rm in}$ & inflow boundary ($\Gamma_{\rm in} := \{ x \in \partial \Omega: \, \beta(x) \cdot n(x) < 0\}$)\\
 

@@ -55,7 +55,7 @@ stabilization can produce a method with none of these properties. It has recentl
 observed in \cite{ern_weighting_2012} that traditional linear stabilization terms usually harm interesting properties of the nonlinear stabilization, since they act as a hyperviscosity term. In \cite{ern_weighting_2012}, the authors propose a way to blend edge stabilization  \cite{burman_edge_2004} with entropy-viscosity and numerically observe that the resulting method converges to entropy
 solutions; neither a DMP nor entropy stability is proved.
 
-In this work, we propose novel linear/nonlinear stabilized FE formulations to approximate hyperbolic problems (and by extension singular limits of CDR systems). The outcomes of this research are:
+In this chapter we introdue a linear/nonlinear stabilized FE formulations to approximate hyperbolic problems (and by extension singular limits of CDR systems). The outcomes of this research are:
 \begin{itemize}
 \item  We extend the NPS technique proposed in \cite{badia_stabilized_2012} for pressure stabilization to convection stabilization. We carry out the stability and convergence analysis, getting full control on the convection term (times a stabilization parameter).\footnote{This is an improvement of our analysis with respect to the one in \cite{rebollo_high_2013} for a similar formulation, which only provides partial control over convection, i.e., the component orthogonal to the FE space with respect to the aforementioned projector. However, the analysis in \cite{rebollo_high_2013} is not restricted to quasi-uniform meshes.}
 \item Next, we show how to weight this linear stabilization in such a way that it  does not affect the potential  monotonicity of the underlying method. The use of the Scott-Zhang projector in the NPS stabilization turns out to be essential to design a linear stabilization that allows one to preserve DMP properties. 
@@ -99,7 +99,7 @@ D_{h}^k := \{ v_h: v_h|_K \circ F_K \in P_k(\widehat K), \,{K} \in \mathcal{T}_h
 $$
 The continuous FE spaces are obtained by enforcing continuity, namely $V_h^k := D_h^k \cap C^0(\bar \Omega)$. We will also make use of the FE space  $V^k_{h,0} := V^k_h \cap H_0^\beta(\Omega)$ with null trace on the inflow. For quadrilaterals and hexahedra, the spaces are obtained by replacing $P_k(\widehat K)$ by $Q_k(\widehat K)$, the space of polynomials with maximum degree $k$ in each reference space coordinate on $\widehat K$.  
 
-Let us introduce some basic notation. Let  $q$ and $v$  be a scalar and vectorial smooth function respectively inside every element $K \in \mathcal{T}_h$. Let $K^+$ and $K^-$ be two neighboring elements and $\facet = \partial K^+ \cap \partial K^-$ the corresponding common face. We denote by $q^\pm$ (idem for $v^\pm$) the trace of $q$ on $\partial K^\pm$ taken within the interior of $K^\pm$, and $n^\pm$ the outward normal to $\partial K^\pm$. We define at $\x \in \facet$ the averages and jumps 
+Let us introduce some basic notation. Let  $q$ and $v$  be a scalar and vectorial smooth function respectively inside every element $K \in \mathcal{T}_h$. Let $K^+_\facet$ and $K^-_\facet$ be two neighboring elements and $\facet = \partial K^+_\facet \cap \partial K^-_\facet$ the corresponding common face. We denote by $q^\pm$ (idem for $v^\pm$) the trace of $q$ on $\partial K^\pm_\facet$ taken within the interior of $K^\pm_\facet$, and $n^\pm$ the outward normal to $\partial K^\pm_\facet$. We define at $\x \in \facet$ the averages and jumps 
 \begin{align*}
 \mean{q} := \half(q^+ + q^-),\qquad \jump{q} &:=(q^+  n^+ + q^- n^-),\\
 \mean{v} := \half(v^+ + v^-) ,\qquad \jump{v} &:= (v^+ \cdot n^+ + v^- \cdot n^-).
@@ -107,9 +107,9 @@ Let us introduce some basic notation. Let  $q$ and $v$  be a scalar and vectoria
 
 
 %Further, we define $\jumpt{\v} := (\v^+ \otimes \n^+ + \v^- \otimes \n^-)$.
-For the FE space $V_h^k$ we denote by $\mathcal{N}_h$ the set of all interpolation nodes related to $\mathcal{T}_h$ and by $\{\phi^a_h\}_{a \in \mathcal{N}_h}$ the corresponding nodal basis of $V_h^k$. We also denote by $\mathcal{N}_h(K)$ the set of all nodes that belong to a FE $K$. Continuous FE functions can be written as $v_h = \sum_{a \in \mathcal{N}_h} v_h^a \phi^a_h(\x)$, where $v_h^a$ denotes the nodal value of $v_h$ corresponding to $a$. Analogously, $\{\phi^a_h(\x)|_K\}_{K \in \mathcal{T}_h, a \in \mathcal{N}_h(K)}$ is the basis for $D_h$ and discontinuous FE functions  are written as $v_h = \sum_{K \in \mathcal{T}_h} \sum_{a \in \mathcal{N}_h(K)} v_h|_K^a \phi^a_h(\x)|_K$, where $v_h|_K^a$ is the value of $v_h$ at the node $a$ in element $K$.  
-%Further, we define the adjacency list $\mathcal{A}_h^{\rm nd}(a)$ of a node $a \in \mathcal{N}_h$ as the set of nodes $c \in \mathcal{N}_h$ such that $a, c\in \mathcal{N}_h(K)$ for some $K \in \mathcal{T}_h$, i.e. the set of neighbor nodes. 
-On the other hand, $\mathcal{A}_h^{\rm el}(a)$ is the set of elements $K \in \mathcal{T}_h$ such that $a \in \mathcal{N}_h(K)$, i.e., the set of neighbor elements, and $\Omega_a = \cup_{K\in\mathcal{A}_h^{\rm el}} K$ is the macroelement associated to the node $a$. Let  $h_K$ denote the diameter of $K\in\mathcal{T}_h$ and $h := \max_{K\in\mathcal{T}_h} h_K$. 
+For the FE space $V_h^k$ we denote by $\setnodes$ the set of all interpolation nodes related to $\mathcal{T}_h$ and by $\{\varphi^i_h\}_{x_i \in \setnodes}$ the corresponding nodal basis of $V_h^k$. We also denote by $\setnodes(K)$ the set of all nodes that belong to a FE $K$. Continuous FE functions can be written as $v_h = \sum_{x_i \in \setnodes} v_h^i \varphi^i_h(\x)$, where $v_h^i$ denotes the nodal value of $v_h$ corresponding to $i$. Analogously, $\{\varphi^i_h(\x)|_K\}_{K \in \mathcal{T}_h, x_i \in \setnodes(K)}$ is the basis for $D_h$ and discontinuous FE functions  are written as $v_h = \sum_{K \in \mathcal{T}_h} \sum_{x_i \in \setnodes(K)} v_h|_K^i \varphi^i_h(\x)|_K$, where $v_h|_K^i$ is the value of $v_h$ at the node $x_i$ in element $K$.  
+%Further, we define the adjacency list $\mathcal{A}_h^{\rm nd}(a)$ of a node $a \in \setnodes$ as the set of nodes $c \in \setnodes$ such that $a, c\in \setnodes(K)$ for some $K \in \mathcal{T}_h$, i.e. the set of neighbor nodes. 
+On the other hand, $\Omega_i$ is the set of elements $K \in \mathcal{T}_h$ such that $x_i \in \setnodes(K)$, i.e., the set of neighbor elements. Let  $h_K$ denote the diameter of $K\in\mathcal{T}_h$ and $h := \max_{K\in\mathcal{T}_h} h_K$. 
 
 The Galerkin FE approximation of \Eq{probcont} consists in seeking $u_h \in V^k_{h,0}$ such that
 \begin{equation}\label{eq-galerkin}
@@ -146,17 +146,17 @@ In this work, we extend the NPS method (recently proposed in \cite{badia_stabili
 
 \subsection{Nodal projection stabilization}
 
-At this point, let us introduce a variant of the Scott-Zhang projector \cite{scott_finite_1990} which is well-defined for $L^1(\Omega)$ functions. The analysis in \cite{scott_finite_1990} does apply for this projector even though it is not the standard version, because it does not keep homogeneous boundary conditions. We can build a node-to-element map $\varsigma: \mathcal{N}_h \rightarrow  \mathcal{T}_h$ such that given a node $a$ it provides an element $K \in \mathcal{A}_h^{\rm el}(a)$; for interior nodes there is only one choice, two choices for nodes on faces and possibly more for nodes on edges or vertices. Following \cite{scott_finite_1990}, for any $a \in \mathcal{N}_h$ there is only one dual function $\psi^a_h \in P_r(K)$ (analogously for $Q_r(K)$) such that
+At this point, let us introduce a variant of the Scott-Zhang projector \cite{scott_finite_1990} which is well-defined for $L^1(\Omega)$ functions. The analysis in \cite{scott_finite_1990} does apply for this projector even though it is not the standard version, because it does not keep homogeneous boundary conditions. We can build a node-to-element map $\varsigma: \setnodes \rightarrow  \mathcal{T}_h$ such that given a node $x_i$ it provides an element $K \in \Omega_i$; for interior nodes there is only one choice, two choices for nodes on faces and possibly more for nodes on edges or vertices. Following \cite{scott_finite_1990}, for any $x_i \in \setnodes$ there is only one dual function $\psi^i_h \in P_r(K)$ (analogously for $Q_r(K)$) such that
 \begin{align}\label{eq-dualfunct}
-\int_{\varsigma(a)} \psi_h^a(\x)\phi_h^b(\x) {\rm d}\x = \delta_{ab}, \qquad \hbox{for any}\ b\in\mathcal{N}_h(\varsigma(a)).
+\int_{\varsigma(x_i)} \psi_h^i(\x)\varphi_h^j(\x) {\rm d}\x = \delta_{ij}, \qquad \hbox{for any}\ j\in\setnodes(\varsigma(x_i)).
 \end{align}
 Now, we construct the projector $\kappa_h: L^1(\Omega) \rightarrow V^k_h$ as follows:
 \begin{align}\label{eq-projSZ}
-\kappa_h(v) := \sum_{a \in \mathcal{N}_h}  \phi^a_h(\x) \int_{\varsigma(a)} \psi_h^a(\x) v(\x) \rm{d} \x.\end{align} 
+\kappa_h(v) := \sum_{x_i \in \setnodes}  \varphi^i_h(\x) \int_{\varsigma(x_i)} \psi_h^i(\x) v(\x) \rm{d} \x.\end{align} 
 However, we can consider the following simplifications:
 \begin{enumerate}
-\item Since $\nabla \phi^a_h|_K \in P_{r-1}(K) \subset P_r(K)$ for any $a \in \mathcal{N}_h$, we can easily check that $\kappa_h(\nabla \phi^a_h)(c) =  \nabla \phi^a_h|^c_ {\varsigma(c)}$ and thus, to compute the stabilization term \Eq{stproj1} one \emph{does not require any integration or the explicit computation of dual functions.} 
-\item We note that this trick is not possible for \Eq{stproj2} since $\beta \cdot \nabla \phi^a_h|_K \not\in P_{r}(K)$ in general. However, we can still use the nodal projection, i.e., $\kappa_h(\beta \cdot \nabla \phi^a_h)(c) =  \beta \cdot \nabla \phi^a_h|^c_ {\varsigma(c)}$, keeping the required stability and approximability properties (see \cite{rebollo_high_2013}).
+\item Since $\nabla \varphi^i_h|_K \in P_{r-1}(K) \subset P_r(K)$ for any $x_i \in \setnodes$, we can easily check that $\kappa_h(\nabla \varphi^i_h)(x_k) =  \nabla \varphi^i_h|^k_ {\varsigma(x_k)}$ and thus, to compute the stabilization term \Eq{stproj1} one \emph{does not require any integration or the explicit computation of dual functions.} 
+\item We note that this trick is not possible for \Eq{stproj2} since $\beta \cdot \nabla \varphi^i_h|_K \not\in P_{r}(K)$ in general. However, we can still use the nodal projection, i.e., $\kappa_h(\beta \cdot \nabla \varphi^i_h)(x_k) =  \beta \cdot \nabla \varphi^i_h|^k_ {\varsigma(x_k)}$, keeping the required stability and approximability properties (see \cite{rebollo_high_2013}).
 \end{enumerate}
 We refer to \cite{badia_stabilized_2012} for a detailed discussion about implementation aspects and for the definition of the sparsity pattern of the matrix. 
 %\begin{remark}
@@ -355,9 +355,9 @@ where $a_h(u_h,\phi_h) = b_h(u_h,\phi_h) + s_h(u_h,\phi_h)$. As it has been noti
 In this section we  show how a DMP property  can be kept as soon as the weighted formulation is carefully chosen. We will consider the useful definition of the strong DMP given by Burman and Ern in \cite{burman_stabilized_2005,burman_nonlinear_2007} which reads  as follows.
 
 \begin{definition} \label{strongDMP}
-We say that the semi-linear form $a_h(u_h,\phi_h)$ has the strong DMP property if the following holds true: for any $u_h \in \vhk$ and for all interior vertex $a$, if $u_h$ is locally minimal (resp. maximal) on vertex $a$ over macroelement  $\Omega_a$ ($u_h(a)\leq u_h(x) \, \forall x\in \Omega_a$) then there exists $\alpha_K> 0$ such that
+We say that the semi-linear form $a_h(u_h,\phi_h)$ has the strong DMP property if the following holds true: for any $u_h \in \vhk$ and for all interior vertex $x_i$, if $u_h$ is locally minimal (resp. maximal) on vertex $x_i$ over macroelement  $\Omega_i$ ($u_h(x_i)\leq u_h(x) \, \forall x\in \Omega_i$) then there exists $\alpha_K> 0$ such that
 \begin{equation*}
-a_h(u_h,\phi^a_h) \leq \sum_{K\in \Omega_a} \alpha_K |\nabla u_h |_K | \qquad \hbox{(resp. } a_h(u_h,\phi^a_h) \geq  \sum_{K\in \Omega_a} \alpha_K |\nabla u_h |_K | \hbox{)}.
+a_h(u_h,\varphi^i_h) \leq \sum_{K\in \Omega_i} \alpha_K |\nabla u_h |_K | \qquad \hbox{(resp. } a_h(u_h,\varphi^i_h) \geq  \sum_{K\in \Omega_i} \alpha_K |\nabla u_h |_K | \hbox{)}.
 \end{equation*}
 %(resp. $a_h(u_h,\phi^a_h) \geq  \sum_{K\in \Omega_a} \alpha_K |\nabla u_h |_K |$).
 \end{definition}
@@ -372,37 +372,37 @@ It will be shown that, when using lumped matrices for the integration in time, t
 %% \end{equation}
 %% where $a_h(u_h,\phi_h) = b_h(u_h,\phi_h) + s_h(u_h,\phi_h)$. 
 
-We want $a_h(\cdot,\cdot)$ to enjoy the strong DMP property and to do so we will  weight the value of $\delta$ in such a way that the term $s_h(\cdot,\cdot)$ does not harm the DMP property of $b_h(\cdot,\cdot)$. Let us introduce some definitions to compute this weighting. First let $a\in \mathcal{N}_h$ be a node of the mesh and $\mathbb{S}^d\subset \mathbb{R}^d$ be the unit sphere. We further introduce two new concepts: the jump on a node $a$, $\jump{v}_a$, and the mean value on a node $a$, $\mean{v}_a$. Given $v\in [D_h]^d$ be such that $v \cdot t$ is univalued on element boundaries, $t$ being an arbitrary tangent vector to the face (edge), we define these quantities as follows:
+We want $a_h(\cdot,\cdot)$ to enjoy the strong DMP property and to do so we will  weight the value of $\delta$ in such a way that the term $s_h(\cdot,\cdot)$ does not harm the DMP property of $b_h(\cdot,\cdot)$. Let us introduce some definitions to compute this weighting. First let $x_i\in \setnodes$ be a node of the mesh and $\mathbb{S}^d\subset \mathbb{R}^d$ be the unit sphere. We further introduce two new concepts: the jump on a node $x_i$, $\jump{v}_i$, and the mean value on a node $x_i$, $\mean{v}_i$. Given $v\in [D_h]^d$ be such that $v \cdot t$ is univalued on element boundaries, $t$ being an arbitrary tangent vector to the face (edge), we define these quantities as follows:
 \begin{align}\label{eq-njump}
-\jump{v}_a = \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (v(a+\varepsilon r)\cdot r - v(a-\varepsilon r)\cdot r),  
-\quad \mean{v}_a = \frac{1}{2} \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (v(a+\varepsilon r)\cdot r + v(a-\varepsilon r)\cdot r).
+\jump{v}_i = \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (v(x_i+\varepsilon r)\cdot r - v(x_i-\varepsilon r)\cdot r),\\  
+\quad \mean{v}_i = \frac{1}{2} \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (v(x_i+\varepsilon r)\cdot r + v(x_i-\varepsilon r)\cdot r).
 \end{align}
 Clearly, when $d=1$, these definitions reduce to the jump and the average of the absolute value on the corresponding node. The values are well defined for all $r$ %The argument in the limit is pointwise defined 
 since the quantity $v \cdot r$ is univalued due to the tangential continuity of this function on element boundaries.  
 
 \begin{lemma}\label{lem-extrema}
- If $u_h\in\vh1$ has an extremum on node $a$, $ \frac{\jump{\nabla u_h}_a} { 2\mean{|\nabla u_h|}_a} = 1$. Further,  $ \frac{\jump{\nabla u_h}_a} { 2\mean{|\nabla u_h|}_a} \leq 1$ for any $a \in \mathcal{N}_h$.
+ If $u_h\in\vh^1$ has an extremum on node $x_i$, $ \frac{\jump{\nabla u_h}_i} { 2\mean{|\nabla u_h|}_i} = 1$. Further,  $ \frac{\jump{\nabla u_h}_i} { 2\mean{|\nabla u_h|}_i} \leq 1$ for any $x_i \in \setnodes$.
 \end{lemma}
 \begin{proof}
-Given $u_h \in V_h^1$, $\nabla u_h$ satisfies the tangential continuity on element boundaries above and the quantities in \Eq{njump} are well-defined. If $u_h$ has a local extremum on $a$, ${\rm sign} (\nabla u_h(a+r\varepsilon)) = -{\rm sign} (\nabla u_h(a-r\varepsilon))$ for any $ r\in \mathbb{S}^d$. Thus
+Given $u_h \in V_h^1$, $\nabla u_h$ satisfies the tangential continuity on element boundaries above and the quantities in \Eq{njump} are well-defined. If $u_h$ has a local extremum on $x_i$, ${\rm sign} (\nabla u_h(x_i+r\varepsilon)) = -{\rm sign} (\nabla u_h(x_i-r\varepsilon))$ for any $ r\in \mathbb{S}^d$. Thus
 \begin{align*}
-\jump{\nabla u_h}_a = \jump{|\nabla u_h|}_a = & \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (|\nabla u_h(a+\varepsilon r)\cdot r - \nabla u_h(a-\varepsilon r)\cdot r|) \\
-= &\max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (|\nabla u_h(a+\varepsilon r)\cdot r | + |\nabla u_h(a-\varepsilon r)\cdot r|) =
-2 \mean{|\nabla u_h|}_a.
+\jump{\nabla u_h}_i = \jump{|\nabla u_h|}_i = & \max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (|\nabla u_h(x_i+\varepsilon r)\cdot r - \nabla u_h(x_i-\varepsilon r)\cdot r|) \\
+= &\max_{\substack{ r\in\mathbb{S}^d }} \lim_{\varepsilon \rightarrow 0} (|\nabla u_h(x_i+\varepsilon r)\cdot r | + |\nabla u_h(x_i-\varepsilon r)\cdot r|) =
+2 \mean{|\nabla u_h|}_i.
 \end{align*}
 The upper bound is obvious. It proves the lemma.
 \end{proof}
 
-Finally, let us define the set $\mathcal{S}_h(K) = \{\varsigma(a) | a \in \mathcal{N}_h(K)\}$. Now we are able to define the  wNPS  weighting of $\delta$ in each element $K$ as:
+Finally, let us define the set $\mathcal{S}_h(K) = \{\varsigma(x_i) | x_i \in \setnodes(K)\}$. Now we are able to define the  wNPS  weighting of $\delta$ in each element $K$ as:
 \begin{align}\label{eq-tildeltaSZ}
-\delta|_K = \frac{c_\delta h_K}{\|\beta\|_{L^\infty(K)}} \left(1-\max_{a \in \mathcal{S}_h(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q\right),
+\delta|_K = \frac{c_\delta h_K}{\|\beta\|_{L^\infty(K)}} \left(1-\max_{x_i \in \mathcal{S}_h(K)}\left(\frac{ \jump{\nabla u_h}_i }{2\mean{|\nabla u_h|}_i}\right)^q\right),
 \end{align}
 for $q>0$. The following theorem ensures the strong DMP property for $a_h(\cdot,\cdot)$.
 \begin{theorem}
-%Let the term $s_h(u_h,\phi_h)$ be defined as in \Eq{stproj1}-\Eq{projSZ}-\Eq{tildeltaSZ}. If $u_h$ has an extremum on $a$, then ${s}_h(u_h,\phi_h^a) = 0.$
+%Let the term $s_h(u_h,\varphi_h)$ be defined as in \Eq{stproj1}-\Eq{projSZ}-\Eq{tildeltaSZ}. If $u_h$ has an extremum on $a$, then ${s}_h(u_h,\varphi_h^a) = 0.$
 Let $s_h(\cdot,\cdot)$ be  defined as \Eq{stproj1} or \Eq{stproj2}, with the projector $\kappa_h(\cdot)$ in \Eq{projSZ} and the stabilization parameter $\delta$ in \Eq{tildeltaSZ}. Then, if $b_h(\cdot,\cdot)$ enjoys the strong DMP property, so it does $a_h(\cdot,\cdot) =b_h(\cdot,\cdot) + s_h(\cdot,\cdot)$.
 \end{theorem}
-\begin{proof}First, we consider the expression \Eq{stproj1}. Let us check that if $u_h$ has an extremum on $a$, then ${s}_h(u_h,\phi_h^a) = 0.$ If $\kappa_h^\perp(\nabla \phi^a_h)|_K\neq 0$, there exists $b\in K$ such that $\varsigma (b) \in \mathcal{A}_h^{\rm el}(a)$. Thus $a\in  \mathcal{S}_h(K)$ and, since $u_h$ has an extremum on $a$,  $  \frac{ \jump{\nabla u_h }_a }{  2\mean{|\nabla u_h|}_a}=1$ and  $\delta|_K$ is $ 0$. Combining this result with Definition \ref{strongDMP} of the strong DMP property, we prove the theorem. The proof for the stabilization term \Eq{stproj1} is straighforward, observing that the same holds when $\kappa_h^\perp( \beta \cdot \nabla \phi^a_h)|_K\neq 0$.
+\begin{proof}First, we consider the expression \Eq{stproj1}. Let us check that if $u_h$ has an extremum on $x_i$, then ${s}_h(u_h,\varphi_h^i) = 0.$ If $\kappa_h^\perp(\nabla \varphi^i_h)|_K\neq 0$, there exists $x_j\in K$ such that $\varsigma (j) \in \Omega_i$. Thus $x_i\in  \mathcal{S}_h(K)$ and, since $u_h$ has an extremum on $x_i$,  $  \frac{ \jump{\nabla u_h }_i }{  2\mean{|\nabla u_h|}_i}=1$ and  $\delta|_K$ is $ 0$. Combining this result with Definition \ref{strongDMP} of the strong DMP property, we prove the theorem. The proof for the stabilization term \Eq{stproj1} is straighforward, observing that the same holds when $\kappa_h^\perp( \beta \cdot \nabla \varphi^i_h)|_K\neq 0$.
 \end{proof}
 
 
@@ -412,13 +412,13 @@ The DMP property implies the following good features of the method.
 \label{lem-32}
 Let the semilinear form $a_h(\cdot,\cdot)$ satisfy the strong DMP property. Then:
 \begin{enumerate}
-\item[i)]  If $u_h$ is the solution of $a_h(u_h;\phi_h) =f $ with $f\leq 0$ ( $f\geq 0$ resp.), then the minimum (the maximum resp.) of the solution is on the boundary of the domain $\Omega$.
+\item[i)]  If $u_h$ is such that $a_h(u_h;\phi_h) =f $  for any $ \phi_h\in V_h^1$ with $f\leq 0$ ( $f\geq 0$ resp.), then the minimum (the maximum resp.) of the solution is on the boundary of the domain $\Omega$.
 \item[ii)] If  $u_h$ is the solution of \Eq{eq22}, any local extremum of $|u_h|$ is decreasing in time (LED). This implies that $ \| u_h \|_{L^\infty(0,T;L^\infty(\Omega))} \leq \| u_0 \|_{L^\infty(\Omega)}$. 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 \begin{enumerate}
-\item[i)] If $u_h$ has a minimum on the node $a$ in the interior of $\Omega$ then $a_h(u_h,\phi_h^a)\leq \sum_{K\in \Omega_a} \alpha_K |\nabla u_h |_K |,$ for any $ \phi_h\in V_h^1$. But, since $f \leq 0$, we can deduce that $\nabla u_h |_K = 0$ for any $K\in \Omega_a$. Thus, $u_h(b)=u_h(a)$ for any node $b\in\Omega_a$. If $u_h(a)$ is maximal, so is $u_h(b)$ and the process can be repeated until one reaches a node $b\in \partial \Omega$. The proof for the maximum is analogous. 
+\item[i)] If $u_h$ has a minimum on the node $x_i$ in the interior of $\Omega$ then $a_h(u_h,\varphi_h^i)\leq \sum_{K\in \Omega_i} \alpha_K |\nabla u_h |_K |,$. But, since $f \leq 0$, we can deduce that $\nabla u_h |_K = 0$ for any $K\in \Omega_i$. Thus, $u_h(x_j)=u_h(x_i)$ for any node $x_j\in\Omega_i$. If $u_h(x_i)$ is maximal, so is $u_h(x_j)$ and the process can be repeated until one reaches a node $x_j\in \partial \Omega$. The proof for the maximum is analogous. 
 
 \item[ii)] We refer to \cite[Lemma 3.2]{burman_nonlinear_2007} for its proof. It is done for the 1$D$ case but the procedure is very similar for the multidimensional case.
 \end{enumerate}
@@ -488,9 +488,9 @@ as $h \rightarrow 0$. Conservation laws have only one entropy solution
 \end{align}
 for any pair of entropy functions $(\eta,\psi)$; $\eta$ is the entropy function and $\psi$ the entropy flux. Further, it can be proved that the left-hand side of \Eq{entinq} vanishes on smooth regions and is a Dirac delta on shocks. Based on these observations, the following entropy-viscosity (EV) has been proposed in \cite{guermond_entropy_2011}:
 \begin{align}\label{eq-ev}%\label{eq-EV}
-\varepsilon_K(u_h) = \min \{ \varepsilon_{{\rm max},K}, \varepsilon_{{\rm ent},K}\}, \mbox{ }
-\varepsilon_{{\rm max},K} = c_{\rm max} h \|\beta\|_{L^\infty(K)}, \mbox{ }
-\varepsilon_{{\rm ent},K} = c_{\rm ent} h^2 \frac{\|\partial_t \eta + \nabla \cdot \psi\|_{L^\infty(K)}}{\|\eta - \bar{\eta}  \|_{L^\infty(K)}},
+&\varepsilon_K(u_h) = \min \{ \varepsilon_{{\rm max},K}, \varepsilon_{{\rm ent},K}\}, \mbox{ }
+\varepsilon_{{\rm max},K} = c_{\rm max} h \|\beta\|_{L^\infty(K)}, \\\mbox{ }
+&\varepsilon_{{\rm ent},K} = c_{\rm ent} h^2 \frac{\|\partial_t \eta + \nabla \cdot \psi\|_{L^\infty(K)}}{\|\eta - \bar{\eta}  \|_{L^\infty(K)}},
 \end{align}
 where $\bar{\eta}$ is the mean value of the entropy function on $\Omega$ and $(c_{\rm max},c_{\rm ent})$ are positive algorithmic constants; we refer to \cite{guermond_entropy_2011} for a tuning procedure of these constants.\footnote{Unfortunately, all the formulations cited above do not satisfy any DMP. So far, the convergence analysis and monotonicity results for EV methods are open.} %On the other hand, they cannot be extended to CDR problems.%, where the notion of entropy does not apply.
 
@@ -514,22 +514,22 @@ where $t_{\partial K}$ is a unitary vector tangent to $\partial K$ and  $\psi_K(
 \subsection{Gradient jump viscosity methods}\label{s-gjv}
 It is also possible to prove a DMP for artificial viscosity schemes, as it is shown in \cite{burman_nonlinear_2002}, but strong conditions on the mesh must be imposed such as strictly acuteness, i.e., for every element $K\in \mathcal{T}_h$ there exists 
 \begin{align}\label{eq-condalpha}
-0 < \tilde \alpha_K < \frac{\pi}{2} \quad \hbox{such  that} \quad \max\limits_{a, b \in \mathcal{N}_h(K), a \neq b} \left(\frac{\nabla\phi^a|_K}{|\nabla\phi^a|_K|},\frac{\nabla\phi^b|_K}{|\nabla\phi^b|_K|} \right) \leq - \sin \tilde \alpha_K.
+0 < \tilde \alpha_K < \frac{\pi}{2} \quad \hbox{such  that} \quad \max\limits_{x_i, x_j \in \setnodes(K),i \neq j} \left(\frac{\nabla\varphi^i|_K}{|\nabla\varphi^i|_K|},\frac{\nabla\varphi^j|_K}{|\nabla\varphi^j|_K|} \right) \leq - \sin \tilde \alpha_K.
 \end{align}
 In one dimension, Burman has proposed in \cite{burman_nonlinear_2007} a method that, without linear stabilization, exhibits monotonic properties for the time-dependent Burgers' equation. As in the edge stabilization case, the method scales the artificial diffusion taking into account the jump of the gradient between elements; we will recall this kind of methods as \emph{gradient jump viscosity} (GJV) methods. 
 
 Let us propose a novel multidimensional shock-capturing formulation of GJV-type, which enjoys a strong DMP property on strictly
 acute meshes. The method consists of \Eq{nonlin} with  the artificial viscosity term:
 \begin{align}\label{eq-gjvisc0}
-\varepsilon(u_h)|_K = c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} \max_{a \in \mathcal{N}_h(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q,
+\varepsilon(u_h)|_K = c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} \max_{x_i \in \setnodes(K)}\left(\frac{ \jump{\nabla u_h}_i }{2\mean{|\nabla u_h|}_i}\right)^q,
 \end{align}
-with $q>0$ and $c_{\rm gjv}|_K = \frac{1}{(d+1)\sigma_K \sin \alpha_K}$, where $\sigma_K = h_K \min\limits_{a \in \mathcal{N}_h(K)} |\nabla\phi^a_h|_K|$ and $\alpha_K = {\rm arg} \max \{ \tilde \alpha_K:  \tilde \alpha_K \hbox{ satisfies \Eq{condalpha}}\}$. This method can be considered as a multidimensional extension of the one-dimensional scheme in \cite{burman_nonlinear_2007} keeping the monotonic properties.  Let us note that in the $1D$ case we recover the value $c_{\rm gjv} = 1/2$ in \cite{burman_nonlinear_2007}. Since the key novelty of this formulation is the use of the nodal jump and mean values, we call it nodal GJV (nGJV). 
+with $q>0$ and $c_{\rm gjv}|_K = \frac{1}{(d+1)\sigma_K \sin \alpha_K}$, where $\sigma_K = h_K \min\limits_{x_i \in \setnodes(K)} |\nabla\varphi^i_h|_K|$ and $\alpha_K = {\rm arg} \max \{ \tilde \alpha_K:  \tilde \alpha_K \hbox{ satisfies \Eq{condalpha}}\}$. This method can be considered as a multidimensional extension of the one-dimensional scheme in \cite{burman_nonlinear_2007} keeping the monotonic properties.  Let us note that in the $1D$ case we recover the value $c_{\rm gjv} = 1/2$ in \cite{burman_nonlinear_2007}. Since the key novelty of this formulation is the use of the nodal jump and mean values, we call it nodal GJV (nGJV). 
 %Following the analysis performed in \cite{burman_nonlinear_2002}, we have extended the artificial  diffusion in \cite{burman_nonlinear_2007} to the multidimensional transport problem keeping the monotonic properties (in a strictly acute mesh) by taking
 In order to prove the monotonicity of the method we rely on the following lemma (see \cite{burman_nonlinear_2002} for its proof).
 \begin{lemma}\label{lem-stracute}
-Let $\mathcal{T}_h$ be a strictly acute mesh, $u_h\in\vh1$ and $K\in\mathcal{T}_h$. If $u_h$ is minimal on $a \in \mathcal{N}_h(K)$ and $\omega_{K,a}$ is the angle formed by $\nabla u_h$ and $\nabla \phi_h^a$ in $K$, we have
+Let $\mathcal{T}_h$ be a strictly acute mesh, $u_h\in\vh^1$ and $K\in\mathcal{T}_h$. If $u_h$ is minimal on $x_i \in \setnodes(K)$ and $\omega_{K,i}$ is the angle formed by $\nabla u_h$ and $\nabla \varphi_h^i$ in $K$, we have
 $$\cos \omega_{K,a} \leq - \sin \alpha_K.$$
-Similarly, if $u_h$ is maximal on $a$ in $K$, $\cos \omega_{K,a} \geq  \sin \alpha_K$.
+Similarly, if $u_h$ is maximal on $x_i$ in $K$, $\cos \omega_{K,i} \geq  \sin \alpha_K$.
 \end{lemma}
 %\begin{proof}
 %See \cite{burman_nonlinear_2002}.
@@ -548,21 +548,22 @@ a_h(u_h,\phi_h) = (\nabla \cdot ( \beta u_h), \phi_h) + (\varepsilon(u_h) \nabla
 with $\varepsilon(u_h)$ defined as in \Eq{gjvisc0}, satisfies  the strong DMP Definition \ref{strongDMP}  for any $q>0$.
 \end{theorem}
 \begin{proof}
-Assume $u_h$ reaches a minimum on $a\in\Omega$. Then, testing \Eq{bfgjv} with $\phi_h^a$ yields
+Assume $u_h$ reaches a minimum on $x_i\in\Omega$. Then, testing \Eq{bfgjv} with $\varphi_h^i$ yields
 \begin{align*}
- a_h(u_h,\phi_h^a) = \sum\limits_{K\in\mathcal{A}^{\rm el}_h} (\nabla \cdot  (\beta u_h), \phi_h^a)_K + 
- (\varepsilon(u_h)|_K \nabla u_h, \nabla \phi_h^a)_K.
+ a_h(u_h,\varphi_h^i) = \sum\limits_{K\in\Omega_i} (\nabla \cdot  (\beta u_h), \varphi_h^i)_K + 
+ (\varepsilon(u_h)|_K \nabla u_h, \nabla \varphi_h^i)_K.
 \end{align*}
 The convective term in each element $K$ can be bounded by
 \begin{align*}
-\int_K \nabla \cdot (\beta  u_h) \phi_h^a {\rm d}\Omega \leq \int_K |\beta| |\nabla u_h| \phi_h^a {\rm d}\Omega \leq \|\beta\|_{L^\infty(K)} |\nabla u_h| \frac{{\rm meas}(K)}{d+1}.
+\int_K \nabla \cdot (\beta  u_h) \varphi_h^i {\rm d}\Omega \leq \int_K |\beta| |\nabla u_h| \varphi_h^i {\rm d}\Omega \leq \|\beta\|_{L^\infty(K)} |\nabla u_h| \frac{{\rm meas}(K)}{d+1}.
 \end{align*}
 On the other side, using Lemmata \ref{lem-extrema} and \ref{lem-stracute}, we can bound the artificial viscosity term by
 \begin{align*}
-\int_K \varepsilon(u_h) \nabla u_h, \nabla \phi^a_h {\rm d}\Omega &  \leq \int_K c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} |\nabla u_h| |\nabla \varphi_h^a| \cos \omega_{K,a}{\rm d}\Omega\\
-&  \leq - c_{\rm gjv}|_K \|\beta\|_{L^\infty(K)} |\nabla u_h| \sigma_K \sin \alpha_K  {\rm meas}(K) \leq - \|\beta\|_{L^\infty(K)} |\nabla u_h| \frac{{\rm meas}(K)}{d+1}.
+\int_K \varepsilon(u_h) \nabla u_h, \nabla \varphi^i_h {\rm d}\Omega &  \leq \int_K c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} |\nabla u_h| |\nabla \varphi_h^i| \cos \omega_{K,i}{\rm d}\Omega\\
+&  \leq - c_{\rm gjv}|_K \|\beta\|_{L^\infty(K)} |\nabla u_h| \sigma_K \sin \alpha_K  {\rm meas}(K) \\
+& \leq - \|\beta\|_{L^\infty(K)} |\nabla u_h| \frac{{\rm meas}(K)}{d+1}.
 \end{align*}
-Thus $a_h(u_h,\phi_h^a) \leq 0$ if $u_h$ has a minimum on $a$. Similarly, one can prove that $a_h(u_h,\phi_h^a) \geq 0$ if $u_h$ has a maximum on $a$, from what the DMP property follows.
+Thus $a_h(u_h,\varphi_h^i) \leq 0$ if $u_h$ has a minimum on $a$. Similarly, one can prove that $a_h(u_h,\varphi_h^a) \geq 0$ if $u_h$ has a maximum on $a$, from what the DMP property follows.
 \end{proof}
 
 
@@ -633,7 +634,7 @@ In both cases, we take $c_\delta = 1/2$.
 \begin{itemize}
 \item nGJV: In the nodal GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
 \begin{align*}%\label{eq-gjvisc0}
-\varepsilon(u_h)|_K = c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} \max_{a \in \mathcal{N}_h(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q,
+\varepsilon(u_h)|_K = c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} \max_{a \in \setnodes(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q,
 \end{align*}
 where $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin (\pi/6)}$. %In order to satisfy the DMP on acute meshes, we take $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin \alpha_K}$, with the definition of $\alpha_K$ in \Eq{gjvisc0}.
 \item bGJV: In the boundary GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
