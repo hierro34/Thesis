@@ -68,7 +68,7 @@ In this chapter we introdue a linear/nonlinear stabilized FE formulations to app
 
 
 The outline of the chapter is the following. In Section \ref{s-prel} we introduce the continuous problems and its
-Galerkin discretization using FEs. Section \ref{s-fem} is devoted to the NPS formulation based on the Scott-Zhang projector and its corresponding numerical analysis. Section \ref{s-weightDMP} proposes a weighting of the previous linear stabilization in order to not affect the monotonicity of the underlying method. Novel nonlinear stabilization techniques are introduced in Section \ref{s-nonstab}. A summary of the linear/nonlinear schemes used in the numerical experimentation, including the ones proposed in this work, can be found in Algorithm \ref{alg-wNPS-GJV}. Numerical experiments are included in Section \ref{s-numex}. Finally, some conclusions are drawn in Section \ref{s-concl}.
+Galerkin discretization using FEs. Section \ref{s-fem} is devoted to the NPS formulation based on the Scott-Zhang projector and its corresponding numerical analysis. Section \ref{s-weightDMP} proposes a weighting of the previous linear stabilization in order to not affect the monotonicity of the underlying method. Novel nonlinear stabilization techniques are introduced in Section \ref{s-nonstab}. A summary of the linear/nonlinear schemes used in the numerical experimentation, including the ones introduced in this chapter, can be found in Algorithm \ref{alg-wNPS-GJV}. Numerical experiments are included in Section \ref{s-numex}. Finally, some conclusions are drawn in Section \ref{s-concl}.
 
 
 \section{Preliminaries}\label{s-prel}
@@ -141,7 +141,7 @@ Further, symmetry is lost, since $\delta$ is not constant in practice.
 
 The local projection stabilization (LPS) in \cite{braack_local_2006} solves the aforementioned problems since this method involves a local projector; $\kappa_h$ does not project onto $V^k_h$ but a space of discontinuous functions. The original LPS method, lately called two-level LPS, requires a particular hierarchical topology of the mesh that restricts the applicability of the method. Alternative formulations have been proposed in \cite{matthies_unified_2007}, in which a fine space is obtained by including additional functions to the FE space. The resulting method, called one-level LPS, does not involve mesh restrictions but particular enriched FE spaces must be used.
 
-In this work, we extend the NPS method (recently proposed in \cite{badia_stabilized_2012} to attain pressure stability for the Stokes problem) to convection stabilization. We consider $\kappa_h$ to be a particular $L^1(\Omega)$ Scott-Zhang projector, which is favoured with respect to the previous symmetric stabilization techniques since \emph{only local projections} are required and neither \emph{assumptions over the mesh partition} nor \emph{enriched FE spaces} are needed. We note that the projector is locally defined at the node level, which has motivated the name of the method.
+We will extend the NPS method (recently proposed in \cite{badia_stabilized_2012} to attain pressure stability for the Stokes problem) to convection stabilization. We consider $\kappa_h$ to be a particular $L^1(\Omega)$ Scott-Zhang projector, which is favoured with respect to the previous symmetric stabilization techniques since \emph{only local projections} are required and neither \emph{assumptions over the mesh partition} nor \emph{enriched FE spaces} are needed. We note that the projector is locally defined at the node level, which has motivated the name of the method.
 
 
 \subsection{Nodal projection stabilization}
@@ -232,12 +232,12 @@ Now, using the $L^2(\Omega)$ interpolant $\pi_h(\varphi)$, we have
 Since $\lp$ is the orthogonal projector, we know that $\|\lpp(v)\|\leq \|v-w_h\|$ for any $v\in L^2(\Omega)$ and $w_h\in\vhk$. In particular, $\|\lpp(\cdot)\|^2 \leq \|\szpp(\cdot)\|^2$. Using this fact (and invoking the previous lemma for the formulation \Eq{stproj1}), we prove the theorem.
 \end{proof}
 
-Finally, we prove error estimates for this algorithm. We remark that linear projection stabilization methods are weakly consistent, i.e., the consistency error does not spoil the overall convergence rates, as soon as the projector $\kappa_h$ in \Eq{projSZ} has optimal approximation properties, i.e., for any $v\in W^l_p(\Omega)$ and $0\leq s \leq l \leq k+1$, it holds:
+Finally, we prove error estimates for this algorithm. We remark that linear projection stabilization methods are weakly consistent, i.e., the consistency error does not spoil the overall convergence rates, as soon as the projector $\kappa_h$ in \Eq{projSZ} has optimal approximation properties, i.e., for any $v\in W^{l,p}(\Omega)$ and $0\leq s \leq l \leq k+1$, it holds:
 \begin{align}\label{eq-orthapprox}
-\|\kappa_h^\perp(v)\|_{W^s_p(K)} \lesssim h^{l-s} \|v\|_{W^l_p(S_K)}, \qquad 
-\|\kappa_h^\perp(v)\|_{W^s_p(\Omega)} \lesssim h^{l-s} \|v\|_{W_p^l(\Omega)},
+\|\kappa_h^\perp(v)\|_{W^{s,p}(K)} \lesssim h^{l-s} \|v\|_{W^{l,p}(S_K)}, \qquad 
+\|\kappa_h^\perp(v)\|_{W^{s,p}(\Omega)} \lesssim h^{l-s} \|v\|_{W^{l,p}(\Omega)},
 \end{align}
-where $S_K$ is a domain made of the elements neighboing $K$ (see \cite{brenner_mathematical_2010}).  We consider first the analysis for the  symmetric stabilization \Eq{stproj1}.
+where $S_K$ is a domain made of the elements neighboring $K$ (see \cite{brenner_mathematical_2010}).  We consider first the analysis for the  symmetric stabilization \Eq{stproj1}.
 \begin{theorem}[Convergence]\label{th:conv}
 Let $u_h \in V_h^k$ be the solution of \Eq{SZstab} with the linear stabilization term $s_h(\cdot,\cdot)$ defined in  \Eq{stproj1}  and the projector $\kappa_h(\cdot)$ defined in \Eq{projSZ}. Let us assume that the solution $u$ of \Eq{probcont} belongs to $L^\infty(0,T;H^l(\Omega))$ for $l \leq k+1$, and $\beta\in L^\infty(0,T;W^{1,\infty}(\Omega))$. The following error estimate holds for any $t^* \in (0,T)$:
 \begin{align*}
@@ -260,7 +260,7 @@ Thus,
 $$B_h(u_h-u,v_h) = -\tint{ s_h(u,v_h)} \qquad \hbox{and} \qquad B_h(\xi,v_h) =- \tint{ s_h(u,v_h)} + B_h(\eta,v_h),$$ 
 for any $v_h\in \vhk$. Now taking $v_h = \xi$ we obtain
 \begin{align*}
-& \|\xi(t^*)\|^2  + \sno{\xi}  +\tint{c_s(\xi,\xi)} \cl &=  - \tint{s_h(u,\xi)} + \tint{(\partial_t \eta, \xi)} + \tint{(\bb\cdot \nabla \eta,\xi)} + \tint{s_h(\eta,\xi)}  =  I + II + III + IV,
+ \|&\xi(t^*)\|^2  + \sno{\xi}  +\tint{c_s(\xi,\xi)} \cl &=  - \tint{s_h(u,\xi)} + \tint{(\partial_t \eta, \xi)} + \tint{(\bb\cdot \nabla \eta,\xi)} + \tint{s_h(\eta,\xi)} \cl & =  I + II + III + IV,
 \end{align*}
 where we have used the fact that $\|\xi(0)\| = 0$. Now, we will proceed to bound the absolute value of quantities $I-IV$. For the term $I$, it is sufficient to use the approximability of the Scott-Zhang projector and the definition of $\delta$ to obtain
 \begin{align*}
@@ -277,28 +277,32 @@ Finally, knowing that $\eta \in (V^k_h)^\perp$ and the semipositive definiteness
 \begin{align*}
 &|III| = \left| \tint{-(\eta, \lpp(\bb\cdot \nabla \xi)) + 2c_s(\eta,\xi)}  \right| \\
 & \ \leq    \tint{\left|  ( \bar \delta^{-\frac{1}{2}}\eta, \bar \delta^{\frac{1}{2}}\lpp(\bb\cdot \nabla \xi)) \right|} + \tint{\left(\theta c_s(\eta,\eta)+\frac{1}{\theta}c_s(\xi,\xi)\right)}\\
-& \  \leq \tint{\frac{\alpha}{2} \frac{\|\bb\|_{L^\infty(\Omega)}}{h} \|\eta\|^2} + \tint{\frac{1}{2\alpha} \| \bar \delta^\half \lpp(\bb \cdot \nabla \xi)\|^2} +\tint{\left(\theta \|\beta\|_{L^\infty(\Omega)}\|\eta\|\|\nabla \eta\| + \frac{1}{\theta}c_s(\xi,\xi)\right)},
+& \  \leq \tint{\frac{\alpha}{2} \frac{\|\bb\|_{L^\infty(\Omega)}}{h} \|\eta\|^2} + \tint{\frac{1}{2\alpha} \| \bar \delta^\half \lpp(\bb \cdot \nabla \xi)\|^2} \\
+& +\tint{\left(\theta \|\beta\|_{L^\infty(\Omega)}\|\eta\|\|\nabla \eta\| + \frac{1}{\theta}c_s(\xi,\xi)\right)},
 \end{align*}
 for any $\theta > 0$. Using the fact that  $\|\lpp(\bb \cdot \nabla \xi)\|^2 \leq \|\szpp(\bb \cdot \nabla \xi)\|^2$ and Lemma \Lem{kappastab} we get:
 \begin{align*}
 |III| \lesssim & %\|\beta\|_{L^\infty(Q)} \alpha h^{2l-1} \|u\|_{L^2(0,t^*;H^l(\Omega))} + \tint{\frac{\bar \delta}{\alpha} (\| \bb \cdot\szpp\nabla \xi\|^2 +  \|\bb\|_{W^{1,\infty}(\Omega)}^ 2 \|\xi\|^2)} \\
 %\lesssim & 
 \|\beta\|_{L^\infty(\Qq)} \alpha h^{2l-1} \|u\|_{L^2(0,t^*;H^l(\Omega))} 
-+ \tint{\frac{\bar \delta}{\alpha} \| \bb \cdot \szpp (\nabla  \xi) \|^2 }
-+ \tint{ \frac{\bar \delta}{\alpha}  {\|\bb\|_{W^{1,\infty}(\Omega)}^2}  \|\xi\|^2} + \\\
-& + \theta h^{2l-1} \|\bb\|_{L^\infty(\Qq)}  \|u\|^2_{L^2(0,t^*;H^l(\Omega))} + \frac{1}{\theta} \tint{c_s(\xi,\xi)}  .
++ \tint{\frac{\bar \delta}{\alpha} \| \bb \cdot \szpp (\nabla  \xi) \|^2 }\\
+& + \tint{ \frac{\bar \delta}{\alpha}  {\|\bb\|_{W^{1,\infty}(\Omega)}^2}  \|\xi\|^2} + \theta h^{2l-1} \|\bb\|_{L^\infty(\Qq)}  \|u\|^2_{L^2(0,t^*;H^l(\Omega))}\\
+& + \frac{1}{\theta} \tint{c_s(\xi,\xi)}  .
 \end{align*}
 In conclusion, choosing $\alpha$ and $\theta$ large enough we obtain:
 \begin{align*}
-\|\xi(t^*)\|^2 + \sno{\xi}  \lesssim  h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|_{L^2(0,t^*;H^l(\Omega))}^2 +  \tint { \bar \delta \|\bb\|_{W^{1,\infty}(\Omega)}^2 \|\xi\|^2}.
+\|&\xi(t^*)\|^2 + \sno{\xi}  \lesssim  h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|_{L^2(0,t^*;H^l(\Omega))}^2 \\
+& +  \tint { \bar \delta \|\bb\|_{W^{1,\infty}(\Omega)}^2 \|\xi\|^2}.
 \end{align*}
 So, by Gronwall's inequality we get:
 \begin{align*}
-\|\xi(t^*)\|^2 + \sno{\xi} \lesssim  h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|_{L^2(0,t^*;H^l(\Omega))}^2 e^{t^* {\bar \delta } \|\bb  \|^2_{L^\infty(0,t^*;W^{1,\infty}(\Omega))}}.
+\|&\xi(t^*)\|^2 + \sno{\xi} \\
+& \lesssim  h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|_{L^2(0,t^*;H^l(\Omega))}^2 e^{t^* {\bar \delta } \|\bb  \|^2_{L^\infty(0,t^*;W^{1,\infty}(\Omega))}}.
 \end{align*}
 On the other hand, it is easy to see that 
 \begin{align*}
-\|\eta(t^*)\|^2 + \sno{\eta} \lesssim h^{2l} \|u(t^*)\|_{H^l(\Omega)}^2 + h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|^2_{L^2(0,t^*;H^l(\Omega))}.
+\|&\eta(t^*)\|^2 + \sno{\eta} \\
+& \lesssim h^{2l} \|u(t^*)\|_{H^l(\Omega)}^2 + h^{2l-1}\|\bb\|_{L^\infty(\Qq)} \|u\|^2_{L^2(0,t^*;H^l(\Omega))}.
 \end{align*}
 So, the theorem holds.
 \end{proof}
