@@ -651,7 +651,7 @@ where $\tilde c_{\rm gjv} = 1/2$.
 
  $\nu_K$ is defined in \Eq{isosc} with $l_K^{\rm iso}=0.6$ and $\tau_K^{\rm iso}=0$.
 \end{itemize}
-\caption{Possible combination of linear stabilization and shock-capturing\label{alg-wNPS-GJV}}
+\caption{Combination of linear stabilization and shock-capturing techniques\label{alg-wNPS-GJV}}
 \end{algorithm}
 
 The outline of the experimental tests is the following. First, it is checked that the numerical results obtained with the weighted linear/nonlinear stabilization techniques previously analysed do effectively show monotonic properties in 1$D$. Next we check how the convergence of smooth solutions is affected by the methods proposed.  Finally it is shown that the novel multidimensional shock-capturing schemes proposed by the authors produce good results and they are compared with current state-of-the-art schemes. Let us note that both expressions of the symmetric projection stabilization, i.e., \Eq{stproj1} and \Eq{stproj2}, provide the same numerical results, since $\beta  \in V_h^1$ in all tests.
@@ -675,75 +675,49 @@ u_0(x) = \left\{
 0 & \textrm{otherwise}.
 \end{array}\right.
 \end{equation}
-% SB note: Check this figure: 1) No stab is not a good label... one would think no stab but you have put nonlinear GJV stab... Next, SZ and SZ3 are not appropriate labels. We should use NPS (nodal proj stab) and NPS+GJV (w/ shock capturing)... and explain every method in the text... We have called the NPS stab and now we call SZ stab... non consistent
 % Labels should be clearly stated in the caption of the figure.
-This test is being used to show the positive effect of the combined use of linear stabilization with a shock-capturing technique. At this point, the definition of the shock-capturing technique, namely nGJV or bGJV in Algorithm \ref{alg-wNPS-GJV}, is not important since both definitions reduce to the one in \cite{burman_nonlinear_2007} for the 1$D$ case. In Fig. \Fig{pulse1} we show the results obtained when solving this problem with $200$ FEs and using the Crank-Nicolson time integration  with CFL $0.5$, a semi-implicit treatment of the nonlinearity and no mass lumping. Let us recall that the monotonic methods preserve the DMP when no mass lumping is performed. The parameters used in the GJV stabilization are $c_{\rm gjv} = \tilde c_{\rm gjv} =0.5$ (which is the minimum value for which the strong DMP property holds) and $q=10$. It is clear that the combination of the artificial diffusion and the weighted NPS stabilization with GJV shock-capturing outperforms each of them separately. One can observe in the right part of Fig. \Fig{pulse1} the terracing effect on the solution obtained when no linear stabilization is used.
+This test is being used to show the positive effect of the combined use of linear stabilization with a shock-capturing technique. At this point, the definition of the shock-capturing technique, namely nGJV or bGJV in Algorithm \ref{alg-wNPS-GJV}, is not important since both definitions reduce to the one in \cite{burman_nonlinear_2007} for the 1$D$ case. In \Fig{pulse1} we show the results obtained when solving this problem with $200$ FEs and using the Crank-Nicolson time integration  with CFL $0.5$, a semi-implicit treatment of the nonlinearity and no mass lumping. Let us recall that the monotonic methods preserve the DMP when no mass lumping is performed. The parameters used in the GJV stabilization are $c_{\rm gjv} = \tilde c_{\rm gjv} =0.5$ (which is the minimum value for which the strong DMP property holds) and $q=10$. It is clear that the combination of the artificial diffusion and the weighted NPS stabilization with GJV shock-capturing outperforms each of them separately. One can observe in the right part of \Fig{pulse1} the terracing effect on the solution obtained when no linear stabilization is used.
 \begin{figure}
 \centering
 \subfigure[Results for GJV shock-capturing, NPS stabilization and both combined with weighting (wNPS-GJV). ]{\includegraphics[width=9.65cm]{Figures/paper1/test20_p1_200.pdf}} %
 \subfigure[Terracing effect.]{\includegraphics[clip=true, trim=3.8cm 0cm 3.1cm 0cm,width=4.35cm]{Figures/paper1/test20_p1_200_d2.pdf}} %
-\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=10$, $p=1$ and $N=200$, Crank-Nicolson, CFL=0.5 and no mass lumping.}\label{fig-pulse1}
+\caption{$1D$ pulse under transport equation. GJV ($c_{\rm gjv}=0.5$, $q=10$); $p=1$; $N=200$; Crank-Nicolson (CFL$=0.5$); no mass lumping.}\label{fig-pulse1}
 \end{figure}
 
-The same test can be used to check the dependence of the DMP property on the variable $c_{\rm gjv}$ in the transport problem.  For this test, we have used the explicit forward Euler method for the integration in time with mass lumping and a CFL of $0.01$ in such a way that the error of the integration in time can be neglected. Fig. \Fig{SZ_AD_2} shows the results obtained when solving problem \Eq{eqtr}-\Eq{trinc} with  wNPS-GJV in Algorithm \ref{alg-wNPS-GJV}. We notice that the larger the value of $q$ the sharper are the oscillations that appear for $c_{\rm gjv} < 0.5$, so we have used $q=100$ to show the results. It is clear that the threshold $c_{\rm gjv} = 0.5$ is sharp; overshoots and undershoots appear in the solution when $c_{\rm gjv}$ is slightly smaller than $0.5$, violating the TVD property.
-  %The results obtained using the SC without any linear stabilization are displayed in Fig. \ref{tttPure_AD}. As we expected $\nu = 0.5$ is a threshold for the DMP property. Moreover, in order to avoid the error of the integration in time we have used CFL$=0.01$.
+The same test can be used to check the dependence of the DMP property on the variable $c_{\rm gjv}$ in the transport problem.  For this test, we have used the explicit forward Euler method for the integration in time with mass lumping and a CFL of $0.01$ in such a way that the error of the integration in time can be neglected. \Fig{SZ_AD_2} shows the results obtained when solving problem \Eq{eqtr}-\Eq{trinc} with  wNPS-GJV in Algorithm \ref{alg-wNPS-GJV}. We notice that the larger the value of $q$ the sharper are the oscillations that appear for $c_{\rm gjv} < 0.5$, so we have used $q=100$ to show the results. It is clear that the threshold $c_{\rm gjv} = 0.5$ is sharp; overshoots and undershoots appear in the solution when $c_{\rm gjv}$ is slightly smaller than $0.5$, violating the TVD property.
 \begin{figure}%
 \centering
 \subfigure[$c_{\rm gjv}  = 0.49,0.5,0.51$]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ.pdf} %
 \label{fig-SZ_AD_2_s1} }%
 \subfigure[Detail of \subref{fig-SZ_AD_2_s1}]{\includegraphics[width=7cm]{Figures/paper1/BurmanSZ1d.pdf}  }%
-\caption{Test 1. GJV with $c_{\rm gjv}=0.5$, $q=100$, $p=1$ and $N=100$. Forward Euler with CFL$=0.01$ and mass lumping.}\label{fig-SZ_AD_2}%
+\caption{$1D$ pulse under transport equation. GJV ($c_{\rm gjv}=0.5$, $q=100$); $p=1$; $N=100$; forward Euler (CFL$=0.01$); mass lumping.}\label{fig-SZ_AD_2}%
 \end{figure}
 
 
 \subsection{Test 2: Convergence to a smooth solution}
 
-In order to check that the order of convergence is not affected by the stabilization added, we will evaluate the error reduction for a sinusoidal when refining the mesh. The test consists in solving the 2$D$ transport equation \Eq{probcont} with $\beta = (1,0)$, $f=0$, initial solution $u_0(x,y) = \sin(2\pi x)$ in $\Omega=[0,1]\times[0,1]$ and periodic boundary conditions in the $x$ direction. The solution presents  maximum and minimum values along two lines ($x=\frac{1}{4}$ and $x=\frac{3}{4}$ respectively for $t=0$) that activate the shock-capturing. The desired behaviour is that this activation does not affect the convergence of the method. The meshes used for the test are regular triangular meshes of size $N_h\times N_h(\times 2)$. The $L^2(\Omega)$ errors are plotted in Fig. \Fig{smooth_sol}. The label $cG$ stands for the continuous Galerkin scheme without any stabilization and is the reference for the desired convergence one wants to attain when solving smooth solutions. It is clear that the convergence order is spoiled when using shock-capturing techniques without any linear stabilization, specially when using the bGJV method. On the other hand the convergence is maintained when both methods are combined with linear stabilization, either wNPS or SUPG. This test provides another motivation to combine linear and nonlinear stabilization, i.e., to have superior convergence in smooth regions.
+In order to check that the order of convergence is not affected by the stabilization added, we will evaluate the error reduction for a sinusoidal when refining the mesh. The test consists in solving the 2$D$ transport equation \Eq{probcont} with $\beta = (1,0)$, $f=0$, initial solution $u_0(x,y) = \sin(2\pi x)$ in $\Omega=[0,1]\times[0,1]$ and periodic boundary conditions in the $x$ direction. The solution presents  maximum and minimum values along two lines ($x=\frac{1}{4}$ and $x=\frac{3}{4}$ respectively for $t=0$) that activate the shock-capturing. The desired behaviour is that this activation does not affect the convergence of the method. The meshes used for the test are regular triangular meshes of size $N_h\times N_h(\times 2)$. The $L^2(\Omega)$ errors are plotted in \Fig{smooth_sol}. The label $cG$ stands for the continuous Galerkin scheme without any stabilization and is the reference for the desired convergence one wants to attain when solving smooth solutions. It is clear that the convergence order is spoiled when using shock-capturing techniques without any linear stabilization, specially when using the bGJV method. On the other hand the convergence is maintained when both methods are combined with linear stabilization, either wNPS or SUPG. This test provides another motivation to combine linear and nonlinear stabilization, i.e., to have superior convergence in smooth regions.
 
 \begin{figure}
 \includegraphics[clip=true, trim=0cm 9cm 0cm 9cm,width=14cm]{Figures/paper1/smooth_conv_test_2D.pdf}%
- \caption{Test 2. $L^2(\Omega)$ error vs size of the mesh. Crank-Nicolson, $t=1$, $\Delta t = 10^{-3}$. No Mass lumping.}\label{fig-smooth_sol}
+ \caption{Smooth solution. $L^2(\Omega)$ error vs size of the mesh. Crank-Nicolson; $t=1$; $\Delta t = 10^{-3}$; no mass lumping.}\label{fig-smooth_sol}
  \end{figure}
 
-%% \subsection{Test 3: High Order}
-
-%% Eventhough no analysis has been developed, it is interesting to show the performance of the method when high order approximations are used. In order to do so, the test will consist of solving transport equation \Eq{eqtr} in $\Omega = [-1,1]$ with initial condition:
-%%  \begin{displaymath}
-%%  u_0(x)=\left\{\begin{array}{ll}
-%%  \frac{1}{6}\left(G(x,\beta,z-\delta)+G(x,\beta,z+\delta)+4G(x,\beta,z)\right)  & \textrm{if }x\in[-0.8,-0.6]\\
-%%  1 & \textrm{if }x\in[-0.4,-0.2]\\
-%%  1 - |10(x-0.1)| & \textrm{if }x\in[0,0.2]\\
-%%  \frac{1}{6}\left(F(x,\alpha,r-\delta)+G(x,\alpha,r+\delta)+4G(x,\alpha,r)\right) & \textrm{if }x\in[0.4,0.6]\\
-%%  0 & \textrm{otherwise},
-%%  \end{array}\right.
-%%  \end{displaymath} 
-%%  with $G(x,\beta,z)=\exp(-\beta(x-z)^2)$, $F(x,\alpha,r)=\sqrt{\max(1-\alpha^2(x-r)^2,0)}$, $r=0.5$, $z=-0.7$, $\delta=0.005$, $\alpha=10$, $\beta=\displaystyle\frac{\log 2}{36\delta^2}$. The solution is computed at time $T=2$ after one exact period. The solution consists of a smooth but narrow Gaussian, a square pulse, a sharp triangle and a combination of half-ellipses. The test includes various features that we want our methods to capture; its solution is a combination of a continuous but not differentiable linear function (which is badly approximated if the function is overdiffusive), a discontinuous shock and continuous but sharp functions (which should be better captured with $p$ refinement of the mesh).
- 
-%% To check the behaviour of the method, results are obtained with different order but maintaining the degrees of freedom of the problem, so the  following pairs of parameters have been used: $(p,N) = (1,800), (2,400), (4,200), (8,50)$. We solved the problem using Crank-Nicolson and a CFL coefficient of $0.5$. Moreover the parameters $\nu$ and $q$ have been empirically optimazed to be $\nu = (8p-6)^{-1}$ and $q=10$. The results obtained with the Scott-Zhang stabilization are plotted in Fig. \Fig{high_order_1D}. The accuracy of the method is mantained when increasing the order of approximation but it is clear that the shocks are better captured when the mesh is finer.
-
-%%  \begin{figure}
-%%  \includegraphics[width=16cm]{Figures/paper1/highorder1D.pdf} %
-%%  \caption{Test 3. AD + NPS stabilization (\Eq{SZstab}-\Eq{stproj1}-\Eq{projSZ}-\Eq{tildeltaSZ} formulation). $(p,N) = (1,800), (2,400), (4,200), (8,100)$. Crank-Nicolson with CFL=0.5. NO Mass lumping.}\label{fig-high_order_1D}
-%%  \end{figure}
-
 \subsection{Test 3: Multidimensional transport problem} 
-Now, we want to show the performance of nGJV and bGJV nonlinear stabilization for multidimensional problems. We solve the $2D$ transport equation \Eq{eqtr} in $\Omega = [0,1]\times[0,1]$ with $\bb=(-2\pi (y-0.5), 2\pi (x-0.5))$. The initial solution is given in \cite{dmitri_kuzmin_guide_2010} and its interpolation in a mesh of $250\times250$ bilinear elements is displayed in Fig. \Fig{kuzmin0}. %We have extended the definition of the amount of artificial viscosity as it is shown in \Eq{gjvisc}. 
+Now, we want to show the performance of nGJV and bGJV nonlinear stabilization for multidimensional problems. We solve the $2D$ transport equation \Eq{eqtr} in $\Omega = [0,1]\times[0,1]$ with $\bb=(-2\pi (y-0.5), 2\pi (x-0.5))$. The initial solution is given in \cite{dmitri_kuzmin_guide_2010} and its interpolation in a mesh of $250\times250$ bilinear elements is displayed in \Fig{kuzmin0}. %We have extended the definition of the amount of artificial viscosity as it is shown in \Eq{gjvisc}. 
  
 
 \begin{figure}%
 \centering
-\subfigure[Nodally exact initial solution and error regions.]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/inisol.png}\label{fig-kuzmin0}}%
-\subfigure[Error regions]{\includegraphics[clip=true, trim=15cm 4cm 15cm 4cm,width=7.9cm]{Figures/paper1/error_regions.png}\label{fig-err_reg}}
-%{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/inisol.png}}%
-%{\includegaphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_SUPG_GJV_250_notunning.png}}%
-\caption{Test 3. Nodally exact initial solution}\label{fig-algo}
+\subfigure[Nodally exact initial solution]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/inisol.png}\label{fig-kuzmin0}}%
+\subfigure[Error regions]{\includegraphics[clip=true, trim=15cm 4cm 15cm 4cm,width=7.0cm]{Figures/paper1/error_regions.png}\label{fig-err_reg}}
+\caption{Three body rotation. Nodally exact initial solution and error regions.}\label{fig-algo}
 \end{figure}
 
 
-The solution is computed until $t=1$ with a $250 \times 250 (\times 2)$ triangular mesh. Crank-Nicolson with time step $\Delta t = 2\cdot 10^{-4}$ and without mass lumping is used for the integration in time.  We compare the performance of nGJV and bGJV (with and without linear stabilization), EV, and RV  methods. The value of the constant of each method is specified in Algorithm \ref{alg-wNPS-GJV} and all of them have been optimized to obtain the best results. With regard to the EV formulation, we have considered the value of the constants following \cite{guermond_entropy_2011}.\footnote{Let us note that the results for the EV method have been obtained with the entropy function $\eta = (u- 1/2)^2$. This choice is basic to reproduce these results, since the discontinuities under consideration have plateaus on $u = 0$ and 1, and the use of $\eta = u^2$ or $\eta = (u-1)^2$ leads to worse results.} %The optimal definition of the entropy function to be used in the EV method seems to be a problem-dependent task. %How to properly define the optimal entropy function in more complex situations is unclear.
-An approximation of the $L^2$ error after one cycle has been computed in $4$ different regions $\Omega_1$, $\Omega_2$, $\Omega_3$, $\Omega_4$ that are plotted in Fig. \Fig{err_reg}. The first $3$ regions consist of a layer of width $2\cdot 10^{-2}$ around the regions where the function or its gradient change abruptly. The results are collected in Table \ref{tab-ex15_malla2D_new}. Most of the error is concentrated in $\Omega_1$, the layer around the cylinder. In general all the methods give a similar order of error in each region and there is no method that clearly outstands from the rest. 
-%The nGJV shock capturing is the one with less error on the cylinder layer, while RV and EV are the best in $\Omega_2$ and $\Omega_3$ respectivley. In $\Omega_4$, both RV and nGJV are very close. 
-However, the numerical results obtained with the different methods are certainly different, as one can observe in the actual results plotted in Fig. \Fig{triangle1} at $t = 1$. The solutions obtained with nGJV are oscillation-free up to solver tolerance error. Even though the nGJV method without stabilization gives the smallest error in $\Omega_1$, the terracing effect can be appreciated around the cylinder. When wNPS stabilization is added, the solution is smoothed in the region. The strongest oscillations are observed in the SUPG-RV solution. The EV solution presents oscillations on the $u_h=0$ plateau around the shapes that cannot be clearly observed in the plot, and these oscillations become larger when the problem is solved with a quadrilateral mesh. % We note that the entropy function has been optimized to adequate to a function with plateaus at $0$ and $1$. E.g., if $\eta=u_h^2$ instead of $(u_h - 0.5)^2$, the results present strong wiggles on the regions where $u=0$.
+The solution is computed until $t=1$ with a $250 \times 250 (\times 2)$ triangular mesh. Crank-Nicolson with time step $\Delta t = 2\cdot 10^{-4}$ and without mass lumping is used for the integration in time.  We compare the performance of nGJV and bGJV (with and without linear stabilization), EV, and RV  methods. The value of the constant of each method is specified in Algorithm \ref{alg-wNPS-GJV} and all of them have been optimized to obtain the best results. With regard to the EV formulation, we have considered the value of the constants following \cite{guermond_entropy_2011}.\footnote{Let us note that the results for the EV method have been obtained with the entropy function $\eta = (u- 1/2)^2$. This choice is basic to reproduce these results, since the discontinuities under consideration have plateaus on $u = 0$ and 1, and the use of $\eta = u^2$ or $\eta = (u-1)^2$ leads to worse results.} 
+An approximation of the $L^2$ error after one cycle has been computed in $4$ different regions $\Omega_1$, $\Omega_2$, $\Omega_3$, $\Omega_4$ that are plotted in \Fig{err_reg}. The first $3$ regions consist of a layer of width $2\cdot 10^{-2}$ around the regions where the function or its gradient change abruptly. The results are collected in Table \ref{tab-ex15_malla2D_new}. Most of the error is concentrated in $\Omega_1$, the layer around the cylinder. In general all the methods give a similar order of error in each region and there is no method that clearly outstands from the rest.
+However, the numerical results obtained with the different methods are certainly different, as one can observe in the actual results plotted in \Fig{triangle1} at $t = 1$. The solutions obtained with nGJV are oscillation-free up to solver tolerance error. Even though the nGJV method without stabilization gives the smallest error in $\Omega_1$, the terracing effect can be appreciated around the cylinder. When wNPS stabilization is added, the solution is smoothed in the region. The strongest oscillations are observed in the SUPG-RV solution. The EV solution presents oscillations on the $u_h=0$ plateau around the shapes that cannot be clearly observed in the plot, and these oscillations become larger when the problem is solved with a quadrilateral mesh. 
 \begin{table}
 \centering
 \begin{tabular}{lccccc}
@@ -782,282 +756,51 @@ wNPS + nGJV  &
 &  7.834e-03\\
 \hline
 \end{tabular}
-\caption{Test 3. $\|u-u_h\|_{\Omega_i}$}\label{tab-ex15_malla2D_new}
+\caption{Three body rotation. $\|u-u_h\|_{\Omega_i}$}\label{tab-ex15_malla2D_new}
 \end{table}
 \begin{figure}%
 \centering
-\subfigure[{ wNPS-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_GJV_T.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_GJV_T.png}}%
-\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_GJV_T.png}\label{fig-sq1-supgbgjv}}\\%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_GJV_T.png}}
-\subfigure[{EV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_EV_T.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_EV_T.png}}\\ %
-\subfigure[{SUPG-RV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_T.png}}\\%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_RV_T.png}}\\%
-\subfigure[{nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_PGJV_T.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_PGJV_T.png}}\\%
-\subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_PGJV_T.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_PGJV_T.png}}
-\caption{ Test 3. Results at $t = 1.0$. Space discretization with $p=1$ and $250\times 250 (\times 2)$ triangular mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 1 $.}\label{fig-triangle1}
+\subfigure[{ wNPS-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=0.5\textwidth]{Figures/paper1/15_SZ_GJV_T.png}}%
+\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/15_SUPG_GJV_T.png}\label{fig-sq1-supgbgjv}}\\
+\subfigure[{EV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/15_None_EV_T.png}}%
+\subfigure[{SUPG-RV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/15_SUPG_RV_T.png}}\\
+\subfigure[{nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/15_None_PGJV_T.png}}%
+\subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.0cm]{Figures/paper1/15_SZ_PGJV_T.png}}
+\caption{ Three body rotation. Results for different methods. $p=1$; $250\times 250 (\times 2)$ triangular mesh; Crank-Nicolson; $t=1$; $\Delta t = 2 \cdot 10^{-4}$; no mass lumping.}\label{fig-triangle1}
 \end{figure}
 
-
-%Since Next, we apply the nGJV method in a non strictly acute mesh and no mass lumping, with the constant $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin(\pi / 6)}$
-
-The results reported in Fig. \Fig{triangle1} are at the final stage of the computation, i.e., $t=1$, and the oscillations have already been smoothed out. In order to better evaluate how the different methods succeed eliminating oscillations, we introduce the oscillation function
-%In order to show the behaviour at the first steps one can compute the value%It comes from the fact that some methods suffer at the first time steps, untill diffusion has smoothed sharp discontinuities out. Further, we report in Table \ref{tab-triangle} the oscillations, i.e. 
+The results reported in \Fig{triangle1} are at the final stage of the computation, i.e., $t=1$, and the oscillations have already been smoothed out. In order to better evaluate how the different methods succeed eliminating oscillations, we introduce the oscillation function
 \begin{align*}
 &{\rm osc}(t) = \max_{(x,y)\in \Omega} \left\{0 , u_h(x,y,t) - 1 , -u_h(x,y,t) \right\}.
 \end{align*}
-We compute the mean value of the parameter ${\rm osc(t)}$ in bunches of $50$ time steps and the time evolution of this quantity for the different methods is plotted in Fig \Fig{osc}. It can be appreciated that the method with the smallest overshoots and undershoots is nGJV without any linear stabilization; when the wNPS is added, the order of the oscillations is still very low. We remark that the DMP is not exactly attained for the nGJV method since we are considering non-acute meshes, no mass lumping, and inexact time integration. bGJV shows smaller oscillations when combined with SUPG stabilization than with the wNPS; it is noticeable the good behavior of bGJV with SUPG compared to the traditional RV-SUPG approach. Focusing on the first time steps, where the stronger oscillations occur, RV and bGJV present strong violations of the DMP (either wiht SUPG and with wNPS linear stabilization). These oscillations remain for SUPG-RV and wNPS-bGJV methods during the whole computation. This oscillatory behaviour is clearly observed  in Fig. \Fig{osrv}, where we plot the solutions obtained  at time $t=0.01$. 
+We compute the mean value of the parameter ${\rm osc(t)}$ in bunches of $50$ time steps and the time evolution of this quantity for the different methods is plotted in \Fig{osc}. It can be appreciated that the method with the smallest overshoots and undershoots is nGJV without any linear stabilization; when the wNPS is added, the order of the oscillations is still very low. We remark that the DMP is not exactly attained for the nGJV method since we are considering non-acute meshes, no mass lumping, and inexact time integration. bGJV shows smaller oscillations when combined with SUPG stabilization than with the wNPS; it is noticeable the good behavior of bGJV with SUPG compared to the traditional RV-SUPG approach. Focusing on the first time steps, where the stronger oscillations occur, RV and bGJV present strong violations of the DMP (either wiht SUPG and with wNPS linear stabilization). These oscillations remain for SUPG-RV and wNPS-bGJV methods during the whole computation. This oscillatory behaviour is clearly observed  in \Fig{osrv}, where we plot the solutions obtained  at time $t=0.01$. 
 
 \begin{figure}%
 \centering
-\subfigure[${\rm osc(t)}$ in time]{\includegraphics[clip=true,  trim=3cm 9cm 4cm 9cm,width=7.9cm]{Figures/paper1/osc_time_tr.pdf}\label{fig-osc}}%
-\subfigure[{SUPG-RV, $t = 0.01 $}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_T_001.png}\label{fig-osrv}}\\%
-\caption{Test 3. Evolution of the parameter ${\rm osc}$. Detail of the solution for the SUPG-RV at $t=0.01$. Space discretization with $p=1$ and $250\times 250 \times 2$ triangular mesh. Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and no mass lumping.}\label{fig-osctime}
+\subfigure[${\rm osc(t)}$ in time]{\includegraphics[clip=true,  trim=3cm 9cm 4cm 9cm,width=0.5\textwidth]{Figures/paper1/osc_time_tr.pdf}\label{fig-osc}}%
+\subfigure[{SUPG-RV, $t = 0.01 $}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=0.5\textwidth]{Figures/paper1/15_SUPG_RV_T_001.png}\label{fig-osrv}}\\%
+\caption{Three body rotation. Evolution of the oscillations in time. $p=1$; $250\times 250 (\times 2)$ triangular mesh; Crank-Nicolson; $t=1$; $\Delta t = 2 \cdot 10^{-4}$; no mass lumping.}\label{fig-osctime}
 \end{figure}
 
-%Out of these results, we can draw some conclusions. In the first stages of the computation, i.e. the results for $t = 10^{-2} \, {\rm s}$ in Figs. \Fig{square001}-\Fig{triangle001} and Table \ref{tab-triangle}, we observe that traditional SUPG-RV methods exhibit the strongest oscillations. The bGJV shock-capturing technique, both with SUPG and  wNPS stabilization, presents similar oscillations on the triangular mesh. However, on the quadrilateral mesh, SUPG-bGJV leads to excellent results whereas  wNPS-bGJV is over-dissipative. It is clear out of these results, that EV and nGJV (alone or with  wNPS stabilization) are the best methods for this case. It is remarkable the value of the largest oscillation of the nGJV method in both meshes and the  wNPS-nGJV method in the quadrilateral mesh. We remark that the DMP cannot be exactly attained since we are considering non-acute meshes, no mass lumping and inexact time integration.
-
-%TRIANGULAR MESH  
-%\begin{table}
-%\centering
-%\begin{tabular}{ccccc}
-%\hline
-%Method  & Mesh type & $\max {\rm osc}(\cdot)$ & ${\rm osc}(0.01)$ & ${\rm osc}(1.0)$ \\\hline
-%
-% wNPS-bGJV & triangles    &  1.173e-01 &  7.304e-02 &  6.071e-02 \\
-%             & quads        &  6.300e-02 &  5.908e-02 &  3.990e-03 \\\hline
-%SUPG-bGJV    & triangles    &  2.200e-01 &  3.793e-02 &  1.758e-03 \\
-%             & quads        &  1.432e-01 &  2.044e-02 &  3.987e-03 \\\hline
-%EV           & triangles    &  6.739e-02 &  1.290e-02 &  2.310e-02 \\
-%             & quads        &  4.911e-02 &  9.113e-03 &  2.604e-02 \\\hline
-%SUPG-RV      & triangles    &  1.727e-01 &  1.190e-01 &  2.560e-02 \\
-%             & quads        &  2.143e-01 &  1.831e-01 &  2.962e-02 \\\hline
-%nGJV         & triangles    &  5.449e-02 &  7.637e-04 &  1.816e-07 \\
-%             & quads        &  9.578e-02 &  1.454e-05 &  3.757e-09 \\\hline
-% wNPS-nGJV & triangles    &  5.098e-02 &  1.057e-02 &  8.206e-04 \\
-%             & quads        &  7.782e-02 &  1.848e-05 &  3.590e-12 \\\hline
-%\end{tabular}
-%\caption{ Maximum oscillations for a quadrilateral mesh of $250\times 250$ FEs and a triangular mesh of $250\times 250 \times 2$ FEs at $t = 0.01 \, {\rm s}$, $t = 1.0 \, {\rm s}$ and maximum value for $t \in [0.0, 1.0 ]  \,{\rm s}$.}\label{tab-triangle}
-%\end{table}
-
-
-
-
-%LES QUATRE PRIMERES
-
-%\begin{figure}%
-%\centering
-%\subfigure[{ wNPS-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_GJV_Q.png}}%
-%\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_GJV_Q_001.png}}\\%
-%\subfigure[{EV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_EV_Q_001.png}}%
-%\subfigure[{SUPG-RV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_Q_001.png}} \\%
-%\subfigure[{nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_PGJV_Q_001.png}}%
-%\subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_PGJV_Q_001.png}}%
-%\caption{ Test 4. Results at $t = 0.01 \, {\rm s}$. Space discretization with $p=1$ and $250\times 250$ quadrilateral mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 10^{-2} \, {\rm s}$.}\label{fig-square001}
-%\end{figure}
-
-%LES DOS ÚLTIMES
-%
-%\begin{figure}%
-%\centering
-%\subfigure[{ wNPS-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_GJV_T_001.png}}%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_GJV_T.png}}%
-%\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_GJV_T_001.png}}\\%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_GJV_T.png}}
-%\subfigure[{EV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_EV_T_001.png}}%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_EV_T.png}}\\ %
-%\subfigure[{SUPG-RV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_T_001.png}}\\%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_RV_T.png}}\\%
-%\subfigure[{nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_PGJV_T_001.png}}%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_PGJV_T.png}}\\%
-%\subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_PGJV_T_001.png}}%
-%%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_PGJV_T.png}}
-%\caption{ Test 4. Results $t = 0.01 \, {\rm s}$. Space discretization with $p=1$ and $250\times 250 \times 2$ triangular mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 10^{-2} \, {\rm s}$.}\label{fig-triangle001}
-%\end{figure}
-%
-%
-
-%LES QUATRE PRIMERES
-
-%LES DOS ÚLTIMES
-
-
-Even when the analysis performed in this work has been done on simplicial meshes, the methods have been tested in quadrilateral meshes also. All the methods provide similar results in both kind of meshes with the notable exception of the bGJV method that, when combined with SUPG stabilization, leads to a very accurate approximation of the solution. The result is plotted in Fig. \Fig{gjvquad}. It is remarkable how the solution keeps the shape of the cylinder and the plateu $u_h=1$. We want to stress that a naive extension of the $1D$ method in \cite{burman_nonlinear_2007}, i.e., the artificial diffusion in \Eq{gjvisc} without the correction term $\frac{\int_e |\nabla u_h \cdot n|{\rm d} \sigma}{\int_e |\nabla u_h| {\rm d} \sigma}$, is extremely over-diffusive. The results after one cycle are displayed in Fig.  \Fig{notuning}. We can observe the dramatic improvement obtained with the correction factor by comparing both plots.
-
+Even when the analysis performed in this work has been done on simplicial meshes, the methods have been tested in quadrilateral meshes also. All the methods provide similar results in both kind of meshes with the notable exception of the bGJV method that, when combined with SUPG stabilization, leads to a very accurate approximation of the solution. The result is plotted in \Fig{gjvquad}. It is remarkable how the solution keeps the shape of the cylinder and the plateu $u_h=1$. We want to stress that a naive extension of the $1D$ method in \cite{burman_nonlinear_2007}, i.e., the artificial diffusion in \Eq{gjvisc} without the correction term $\frac{\int_e |\nabla u_h \cdot n|{\rm d} \sigma}{\int_e |\nabla u_h| {\rm d} \sigma}$, is extremely over-diffusive. The results after one cycle are displayed in \Fig{notuning}. We can observe the dramatic improvement obtained with the correction factor by comparing both plots.
 
 \begin{figure}%
 \centering
-%\subfigure[{ wNPS-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_GJV_Q.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_GJV_Q.png}}%
-\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_GJV_Q.png}\label{fig-gjvquad}}%
-\subfigure[{SUPG-bGJV without correction}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_GJV_NOtunning.png}\label{fig-notuning}}%
-%{\includegaphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_SUPG_GJV_250_notunning.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_GJV_Q.png}}
-%\subfigure[{EV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_EV_Q.png}\label{subf-ev-q-1}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_EV_Q.png}}%
-%\subfigure[{SUPG-RV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SUPG_RV_Q.png}} \\%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SUPG_RV_Q.png}}\\%
-%\subfigure[{nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_None_PGJV_Q.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_None_PGJV_Q.png}}%
-%\subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=7.9cm]{Figures/paper1/15_SZ_PGJV_Q.png}}%
-%\subfigure{\includegraphics[clip=true, trim=15.5cm 1.1cm 0.9cm 11.65cm, width=1.75cm]{Figures/paper1/15_SZ_PGJV_Q.png}}
-\caption{ Test 3. Results $t = 1.0$. Space discretization with $p=1$ and $250\times 250$ quadrilateral mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 1$.}\label{fig-square1}
+\subfigure[{SUPG-bGJV}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=0.5\textwidth]{Figures/paper1/15_SUPG_GJV_Q.png}\label{fig-gjvquad}}%
+\subfigure[{SUPG-bGJV without correction}]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=0.5\textwidth]{Figures/paper1/15_SUPG_GJV_NOtunning.png}\label{fig-notuning}}
+\caption{Three body rotation. The effect of the correction term. $p=1$; $250\times 250 (\times 2)$ triangular mesh; Crank-Nicolson; $t=1$; $\Delta t = 2 \cdot 10^{-4}$; no mass lumping.}\label{fig-square1}
 \end{figure}
-
-
-%Next, we compare the performance of the bGJV scheme  \Eq{gjvisc} with other shock capturing techniques in Fig. \Fig{SC_kuzmin}. Let us recall that no DMP property has been proved for this method in multidimension. Here we observe that the method that performs better is the SUPG-bGJV method; the EV method does also a good job reducing oscillations but it is still overdissipative. The RV method is the one that shows the largest overshoots and undershoots.
-% SB note: Resultats tallats !
-%Figs. \Fig{SC_kuzmin}-\subref{SC_kuzmin1} and  \Fig{SC_kuzmin}-\subref{fig-tuning} have been computed with the GJV in \Eq{gjvisc}. 
-%% \begin{figure}%
-%% \centering
-%% \subfigure[{KK-GJV}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_SZ_GJV_250.png}\label{SC_kuzmin1}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_SZ_GJV_250.png}}%
-%% \subfigure[{ SUPG-bGJV}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_SUPG_GJV_250.png}\label{fig-tuning}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_SUPG_GJV_250.png}}
-%% \subfigure[{EV }]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_None_EV_250.png}\label{SC_kuzmin3}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_None_EV_250.png}}%
-%% \subfigure[{ SUPG-RV}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_SUPG_RV_250.png}\label{SC_kuzmin4}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_SUPG_RV_250.png}}%
-%% \caption{ Test 6. Space discretization with $p=1$ and $250\times 250$ mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping.}\label{fig-SC_kuzmin}
-%% \end{figure}
- 
-
-%Now, let us show the behavior of the  nGJV scheme in Algorihtm \ref{alg-wNPS-GJV} on a strictly acute mesh formed entirely by equilateral triangles. To do so we have transformed the domain in a regular hexagon and obtained the results displayed in Fig. \Fig{disasters}. The method shows the DMP property even when no mass lumping is performed. We also tried to implement the edge stabilization proposed in \cite{burman_stabilized_2005} which consists in adding the term \Eq{esterm} with 
-%\begin{align}\label{eq-esterm2}
-%\psi_K(u_h)|_E = C|\beta|h_K^2|\jump{u_h}_E| \quad \forall E \in \partial K.
-%\end{align}
-%Since we are using implicit Euler methods for the time integration we need to approximate the absolute value in the following way $|\jump{u_h(t_{n+1})}|\sim {\rm sign}(u_h(t_n))\jump{u_h(t_{n+1})}$. Moreover we have approximated the ${\rm sign}$ functions by the hyperbolic tangent as it is proposed in the original paper. We also used an hexagonal domain as in the previous case so the mesh is stricly acute. Even so, the solution of the problem diverged and turned to be far from acceptable.
-%% \begin{figure}%
-%% \centering
-%% \subfigure[{nGJV alone}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_PGJV_None_hex.png}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_PGJV_None_hex.png}}%
-%% \subfigure[{ wNPS-nGJV}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_PGJV_SZ_hex.png}\label{fig-dis1}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_PGJV_SZ_hex.png}}%
-%% \caption{ Test 6. Space discretization with $p=1$ and $38400$ elements mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping.}\label{fig-disasters}
-%% \end{figure}
-
-%Next, we apply the nGJV method in a non strictly acute mesh and no mass lumping, with the constant $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin(\pi / 6)}$. In this case we cannot guarantee that the method enjoys a DMP, but the results are excellent, as it can be observed in Fig. \Fig{PGJV_kuzmin}. The method does not only eliminate spurious oscillations but is less dissipative than the methods considered in Fig. \Fig{SC_kuzmin} ; observe the thickness of the shock around the square in Fig \Fig{PGJV_kuzmin}\subref{dis1}. In this case we have used a triangular mesh of $250\times250$ square divided in two triangular elements each. The method outperforms all the previous schemes in terms of overshoots and undershoots. In particular, excellent results have been obtained when the shock-capturing scheme \Eq{gjvisc0} is used alone.
-%% \begin{figure}%
-%% \centering
-%% \subfigure[{nGJV alone}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_PGJV_None_250.png}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_PGJV_None_250.png}\label{dis1}}%
-%% \subfigure[{  wNPS-nGJV}]{\includegraphics[clip=true, trim=4cm 6cm 4cm 6cm,width=6cm]{Figures/paper1/15_PGJV_SZ_250.png}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/15_PGJV_SZ_250.png}}
-%% \caption{Test 6. Space discretization with $p=1$ and $250\times 250$ mesh. Time discretization with Crank-Nicolson, $\Delta t = 2 \cdot 10^{-4}$ and without mass lumping.}\label{fig-PGJV_kuzmin}
-%% \end{figure}
-
-%% \subsection{Test 8: Steady convective dominant CD problem}
-%% Finally we will repeat the test proposed in \cite{john_spurious_2008} which consist in solving the steady convection-diffusion equation
-%% \begin{align}\label{steadypbm}
-%% -10^{-8} \Delta u + \beta \cdot \nabla u = 0 \quad & \quad {\rm in}\, \Omega=[0,1]\times[0,1]
-%% \end{align}
-%% with $\beta = (\cos(-\pi/3),sin(-\pi/ 3))$ and boundary conditions
-%% \begin{align}\label{steadyic}
-%% u_b (x,y) = \left\{\begin{array}{ll}
-%% 0 & {\rm if }\, x=1\, {\rm or }\, y\leq 0.75\\
-%% 1 & {\rm otherwise.} \\
-%% \end{array}\right.
-%% \end{align}
-%% Since the SC techniques proposed so far have a nonlinear term we must use nonlinear iterations to solve the problem. It was noticed that most of the methods do not converge if nonlinear iterations are applied directly so we have used, as in \cite{john_spurious_2008}, a relaxation parameter $\omega$ in such a way that at each nonlinear time step we solve:
-%% \begin{align*}
-%% a_h(u_h^k;\tilde{u}_h^{k+1},\phi_h) = 0
-%% \end{align*}
-%% and then the next iteration is updated as $u_h^{k+1} = u_h^k + \omega(\tilde{u}_h^{k+1} - u_h^k)$.
-%% It is well known that the solution of convective dominant problems present sharp layers that induce spurious oscillation in non-stabilized numerical solution. Even when these layers are, strictly speaking, not shocks, the SC methods can detect them and, using the appropriate viscosity, dump the spurious oscillations. In order to compare the performance of different methods we will solve the problem with each of them in different meshes and compute the maximum overshoot and undershoot in each case.
-%% Concretelly we will use the SUPG stabilization alone and combined with the GJV in \Eq{gjvisc} with $\nu = 0.5$ and $q=10$, the edge stabilization \Eq{esterm}-\Eq{esterm2} with $C=1$ (ES), the isotropic residual viscosity \Eq{isosc} (RV) with $l_K^{\rm iso} = 0.6$ and $\tau_K^{\rm iso} = 0$ (they were algorithmically optimized) and the crosswind residual diffusion in \Eq{cwsc} (CWRV) with $l_K^{\rm cd} = 0.6$ and $\tau_K^{\rm cd} = 0$. Notice that we cannot implement the Entropy viscosity method in this case since the entropy equation is only defined for transient problems. We also compute the results with the SZ linear stabilization alone and blended with the GJV. The blending in this case consists in taking $\delta_K=0.5 {h_k}{\|\beta\|_{L^\infty(K)}^{-1}} \left(1-\left(\max_{e\in\partial K}  \frac{\jump{|\nabla u_h |}_e}{2  \{|u^h_x|\}_e }\right)^q\right)$ . Results where computed with the relaxation parameter $\omega = 0.1$ and nonlinear tolerance of $10^{-4}$ except for the case SZ+GJV in which we have used $\omega = 0.01$ and $5\cdot 10^{-3}$ because it failed to converge. The edge stabilization method did not converge in any of the cases, it was also tested in a simplicial mesh to check if in that case the results varied but they did not. Results can be found in Tables \ref{t-overs} and \ref{t-unders}. It is clear that the GJV outperforms the rest of the methods, specially when combinated with the SUPG linear stabilization. Eventhough no DMP has been proved for the method it is almost achieved in the result. The results with SUPG stabilization alone and together with the GJV are plotted in Fig. \Fig{Steady}
-%% \begin{table}
-%% \begin{center}
-%% \begin{tabular}{|c|c|c|c|c|c|}
-%% \hline Max. Overshoot & $12\times 12$ & $24\times 24$ & $48\times 48$ & $96\times 96$ & $192 \times 192$ \\ 
-%% \hline SUPG & 5.57E-1  & 5.59E-1 & 5.59E-1 & 5.59E-1 & 5.59E-1  \\ 
-%% \hline SZ & 7.80E-1 & 7.00E-1 & 7.07E-1 & 7.08E-1  & 7.08E-1  \\ 
-%% \hline GJV + SUPG & 2.99E-5 &  3.47E-5 & 3.47E-5 & 3.47E-5 & 2.80E-4 \\ 
-%% \hline GJV + SZ & 2.62e-2 & 4.06e-2 & 2.61e-2 & 2.60E-2 & 2.61E-2 \\ 
-%% \hline ES + SUPG & NC & NC & NC & NC & NC \\ 
-%% \hline RV + SUPG & 1.23E-1 & 1.23E-1 & 1.23E-1 & 1.23E-1 & 1.23E-1 \\ 
-%% \hline CWRV + SUPG & 2.19E-1 & 2.21E-1 & 2.21E-1 & 2.21E-1 & 2.21E-1 \\ 
-%% \hline 
-%% \end{tabular} 
-%% \label{t-overs}\caption{}
-%% \end{center}
-%% \end{table}
-%% \begin{table}
-%% \begin{center}
-%% \begin{tabular}{|c|c|c|c|c|c|}
-%% \hline Max. Overshoot & $12\times 12$ & $24\times 24$ & $48\times 48$ & $96\times 96$ & $192 \times 192$ \\ 
-%% \hline SUPG & -3.93E-2 & -5.57E-2 & -5.567E-2 & -6.055E-2 & -6.05E-2 \\ 
-%% \hline SZ & 0 & -2.25E-2 & -3.80E-2 & -4.85E-2 & -5.49E-2 \\ 
-%% \hline GJV + SUPG & 0 & 0 & -1.61E-8 & -4.36E-8 & -3.27E-7 \\ 
-%% \hline GJV + SZ & 0 & -2.82E-3 & -3.60E-3 & -9.99E-3 & -1.06E-2 \\ 
-%% \hline ES + SUPG & NC & NC & NC & NC & NC \\ 
-%% \hline RV + SUPG & 2.14E-2 & 2.62E-2 & 2.62E-2 & 2.62E-2 & 2.62E-2 \\ 
-%% \hline CWRV + SUPG & -2.48e-2 & 2.93e-2 & 2.93e-2 & 2.93e-2 & 2.93e-2 \\ 
-%% \hline 
-%% \end{tabular} 
-%% \label{t-unders}\caption{}
-%% \end{center}
-%% \end{table}
-%% \begin{figure}%
-%% \centering
-%% \subfigure[{SUPG}]{\includegraphics[clip=true, trim=1cm 9cm 0.5cm 3cm,width=6cm]{Figures/paper1/96p96_SUPG_None.png}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/96p96_SUPG_None.png}}%
-%% \subfigure[{ GJV + SUPG}]{\includegraphics[clip=true, trim=1cm 9cm 0.5cm 3cm,width=6cm]{Figures/paper1/96p96_SUPG_GJV.png}}%
-%% \subfigure{\includegraphics[clip=true, trim=25.5cm 1.1cm 0.9cm 23.1cm, width=2cm]{Figures/paper1/96p96_SUPG_GJV.png}}
-%% \caption{ Test 8. $p=1$. Mesh $96\times 96$. $\omega = 0.1$. ${\rm TOL} = 10^{-4}$. NO Mass lumping.}\label{fig-Steady}
-%% \end{figure}
-
-
-
-
-%\input 00_numericalexamples.tex
-
-%
-%% \section{Some numerical analyses}
-%% %
-%% From the error analysis, taking as interpolant of the exact solution $u$ the $L^2$ projection with optimal
-%% interpolation properties $\pi_h(u)$, and denoting $i=u-\pi_h(u) \in V_h^\perp$ (interpolation error) and $e_h = u_h -\pi_h(u) \in V_h$, we have:
-%% $$
-%% (\beta \cdot \nabla i,e_h) = - (i,\beta \cdot \nabla e_h) = - (i, \pi_h^\perp (\beta \cdot \nabla e_h) ) \leq \| i \|  \| \pi_h^\perp (\beta \cdot \nabla e_h) \|,%\leq \frac{|\beta|_{L^\infty(\Omega)}}{h} \|i \| + \frac{h}{|\beta|_{L^\infty(\Omega)}}\| \pi_h^\perp (\beta \cdot \nabla e_h)\|.
-%% $$
-%% where we have used the fact that $\beta$ is solenoidal and I have not considered boundary conditions (put it). We easily get:
-%% $$
-%% \| \pi_h^\perp (\beta \cdot \nabla e_h)\| \leq \| \kappa_h^\perp (\beta \cdot \nabla e_h)\| \leq \| \kappa_h^\perp (\beta_h \cdot \nabla e_h)\| + 
-%% \| \kappa_h^\perp (\beta_h^\perp \cdot \nabla e_h)\|,
-%% $$
-%% where $\beta_h$ is an approximation of $\beta$ in $V_h^1$ (linear FE space) such that $\|\beta_h^\perp\|_{L^\infty(\Omega)} \lesssim h \|\beta \|_{W^{1,\infty}(\Omega)}$, where $\beta_h^\perp = \beta - \beta_h$. It holds for $\beta_h$ being the Scott-Zhang projector \cite{}. We can easily check that $\kappa^\perp_h (\beta_h \cdot \nabla e_h) = \beta_h \cdot \kappa_h^\perp(\nabla e_h)$ at every node of $K \in \mathcal{T}_h$. Further, $\kappa^\perp_h (\beta_h \cdot \nabla e_h)|_K \in V_h^k(K)$ (the restriction of $V_h$ onto $K$) and so $\kappa^\perp_h (\beta_h \cdot \nabla e_h) = \rho_{h,K}(\beta_h \cdot \kappa_h^\perp(\nabla e_h))$ on $K$, where $\rho_{h,K}$ is the nodal (Lagrangian) interpolant in element $K$. As a result, using the stability of the Lagrangian interpolant, we have that $\|\kappa^\perp_h (\beta_h \cdot \nabla e_h)\| \lesssim \|\beta_h \cdot \kappa_h^\perp(\nabla e_h)\| \lesssim \| \beta \cdot \kappa_h^\perp(\nabla e_h)\| + \| \beta_h^\perp \cdot \kappa_h^\perp(\nabla e_h)\|$. Further, using an inverse inequality and the interpolation properties of $\beta_h$ we have,
-%% $$
-%% \| \beta_h^\perp \cdot \kappa_h^\perp(\nabla e_h)\| + 
-%% \| \kappa_h^\perp (\beta_h^\perp \cdot \nabla e_h)\| \lesssim \|\beta \|_{L^{\infty}(\Omega)} \|\nabla e_h\|
-%% \lesssim \|\beta\|_{W^{1,\infty}(\Omega)} \|e_h\|.
-%% $$
-%% Combining these results we get
-%% $$
-%% (\beta \cdot \nabla i,e_h) \lesssim \|i \| ( \| \beta \cdot \kappa_h^\perp(\nabla e_h)\| +  \|\beta\|_{W^{1,\infty}(\Omega)} \|e_h\|) \lesssim (\delta_*^{-\half} \|i\| )( \delta^\half \| \beta \cdot \kappa_h^\perp(\nabla e_h)\| + h^\half \|e_h\|)
-%% $$
-%% where $\delta^{- \half}_* = h^{- \half} (\|\beta\|_{W^{1,\infty}(\Omega)} + \|\beta\|^\half_{L^{\infty}(\Omega)})$ and $\delta = h \|\beta\|^{-1}_{L^{\infty}(\Omega)} \lesssim h_K \|\beta\|^{-1}_{L^{\infty}(K)}= \delta_K$.
-%% Using the Gronwall lemma we can end the convergence proof.
-%
-
-
 
 \section{Conclusions}\label{s-concl}
-%
-In this work, we propose a novel linear stabilization technique for continuous FE
+In this chapter we introduce the linear stabilization technique for continuous FE
 discretizations of time-dependent transport problems which belongs to the family of local 
 projection stabilization techniques. In particular, we consider a Scott-Zhang-type projector which is 
 well-defined for $L^1(\Omega)$ functions, extending the ideas in \cite{badia_stabilized_2012} to convection stabilization. 
 Stability and numerical analyses for the linear transport problem are carried out. 
 
 Further, we design a weighting of the aforementioned linear stabilization such that, 
-%blending of the aforementioned linear and nonlinear stabilization and prove that 
 when combined with a FE discretization with a DMP (usually
 attained via a shock-capturing technique), it does not spoil the monotonicity properties. 
-%the combined formulation satisfies all the properties of the nonlinear stabilization alone. 
-%Thus, the linear stabilization proposed in this paper can be defined in such
-%a way that it does not spoil the DMP property and converges to entropy solutions. 
 It is attained by switching off the linear stabilization around shocks.
 
 Next, we have proposed different nonlinear stabilization (shock-capturing) schemes based on 
@@ -1065,12 +808,7 @@ artificial viscosity, in order to reduce or even eliminate local oscillations ar
 In particular, we have used a definition of the artificial viscosity based on boundary gradient jumps (bGJV),
 following the original work of Burman in \cite{burman_nonlinear_2007}, and another one based on
 nodal jumps (nGJV). For the nodal method, we have proved a salient strong DMP property for multidimensional 
-time-dependent transport problems.%and converge to entropy solutions for the one-dimensional Burgers' equation. 
-
+time-dependent transport problems.
 
 Finally, a complete set of numerical experiments is included. On one hand, we check experimentally
 the theoretical monotonicity properties of the weighting formulations and the nonlinear stabilization. Next, gradient-jump shock-capturing methods (with different linear stabilizations) are compared against residual-based and entropy-based formulations, in order to show its performance. The results obtained with the nGJV scheme are remarkably good, with oscillation-free solutions in different tests.
-
-Future work will be the extension of GJV methods to high order and/or discontinuous Galerkin formulations.
-Further, since these methods do not rely on entropy functions, they can
-also be extended to CDR problems, in order to properly capture boundary and internal layers. 
