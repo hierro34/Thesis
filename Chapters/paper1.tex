@@ -59,7 +59,8 @@ In this chapter we introdue a linear/nonlinear stabilized FE formulations to app
 \begin{itemize}
 \item  We extend the NPS technique proposed in \cite{badia_stabilized_2012} for pressure stabilization to convection stabilization. We carry out the stability and convergence analysis, getting full control on the convection term (times a stabilization parameter).\footnote{This is an improvement of our analysis with respect to the one in \cite{rebollo_high_2013} for a similar formulation, which only provides partial control over convection, i.e., the component orthogonal to the FE space with respect to the aforementioned projector. However, the analysis in \cite{rebollo_high_2013} is not restricted to quasi-uniform meshes.}
 \item Next, we show how to weight this linear stabilization in such a way that it  does not affect the potential  monotonicity of the underlying method. The use of the Scott-Zhang projector in the NPS stabilization turns out to be essential to design a linear stabilization that allows one to preserve DMP properties. 
-\item Then we present some nonlinear stabilization methods, i.e., shock-capturing schemes, with some  monotonicity properties. In particular, we design a method that enjoys a DMP for time-dependent multidimensional linear transport problems. 
+\item 
+Then we present some nonlinear stabilization, i.e., shock-capturing, methods with some  monotonicity properties. In particular, we design a method that enjoys a DMP for time-dependent multidimensional linear transport problems. 
 %\item One of those methods is defined for the 1$D$ Burgers' equation and it is proved in  \cite{burman_nonlinear_2007} that it is not only monotonic but also entropy stable; thus an alternative blending between this nonlinear stabilization and the Scott-Zhang term is proposed in order to ensure that the combination mantains entropy stability.  
 \item   We present a detailed numerical experimentation, where we show the excellent performance of the proposed algorithms in terms of elimination of oscillations, compared to some up-to-date shock-capturing schemes. 
 %Using numerical experimentation, we show that one of the novel shock capturing techniques proposed in this work, %which can be considered a multidimensional extension of the one in \cite{burman_nonlinear_2007}, 
@@ -207,9 +208,11 @@ satisfies the bound
 %\| u_h\|_{L^\infty(0,t^*;L^2(\Omega))} + \| \delta^\half \beta \cdot  \kappa_h
 %^{\perp}(\nabla u_h)\|_{L^2(0,t^*;L^2(\Omega))} + \| |\beta \cdot n|^\half u_h\|_{L^2(0,t^*;L^2(\Gamma_{\rm out}))} \lesssim \|u_0\| + \|f\|_{L^\infty(0,t^*;L^2(\Omega))},
 %$$
-$$
-\| u_h\|_{L^\infty(0,t^*;L^2(\Omega))} + \|s_h(u_h,u_h)\|_{L^2(0,t^*)} + \| |\beta \cdot n|^\half u_h\|_{L^2( \Gamma_{\rm out} \times (0,t^*))} \lesssim \|u_0\| + \|f\|_{L^1(0,t^*;L^2(\Omega))},
-$$
+\begin{align*}
+\| u_h\|_{L^\infty(0,t^*;L^2(\Omega))} &+ \|s_h(u_h,u_h)\|_{L^2(0,t^*)} + \| |\beta \cdot n|^\half u_h\|_{L^2( \Gamma_{\rm out} \times (0,t^*))} \\
+ & \lesssim \|u_0\| + \|f\|_{L^1(0,t^*;L^2(\Omega))}
+\end{align*}
+
 for any $t^* \in (0,T)$. Further, it satisfies the weak inf-sup condition
 \begin{align}\label{eq-dinfsup}
 %\| \bar{\delta}^\half \beta \cdot \nabla u_h \| \lesssim  \| \bar\delta^\half\beta \cdot \kappa_h^{\perp}( \nabla u_h)\|  +
@@ -244,7 +247,7 @@ Let $u_h \in V_h^k$ be the solution of \Eq{SZstab} with the linear stabilization
 & \|(u_h-u)(t^*)\| + \| \delta^\frac{1}{2} \bb \cdot \szpp \nabla  (u_h-u) \|_{L^2(\Qq)}   \\
 %& \|(u_h-u)(t^*)\| + \|s_h(u_h-u,u_h-u)\|_{L^2(0,t^*)}   \\
 %& \qquad \lesssim   h^{l} \|u(t^*)\|_{H^l(\Omega)}  +  h^{l-\half}\|\bb\|_{L^{\infty}(\Omega)}^\half \|u\|_{L^2(0,t^*;H^l(\Omega))} \left( 1 +  \exp\left( h t^* \|\bb\|_{W^{1,\infty}(Q)}^2\right)\right),
-& \qquad \lesssim 
+& \quad \lesssim 
   h^{l} \|u(t^*)\|_{H^l(\Omega)}  +  h^{l-\half}\|\bb\|_{L^{\infty}(\Qq)}^\half \|u\|_{L^2(0,t^*;H^l(\Omega))} \left( 1 + e^{t^* {\bar \delta } \|\bb  \|^2_{L^\infty(0,t^*;W^{1,\infty}(\Omega))}}
 % \exp\left( t^* \left\|{\bar \delta {\|\bb\|_{W^{1,\infty}(\Omega)}^2}}\right\|_{L^\infty(0,t^*)}\right)
 \right). 
@@ -316,8 +319,9 @@ When we consider the stabilization term \Eq{stproj2} it is possible to eliminate
 \begin{theorem}[Convergence]\label{th:conv2}
 Let $u_h \in V_h^k$ be the solution of \Eq{SZstab} with the linear stabilization term $s_h(\cdot,\cdot)$ defined in  \Eq{stproj2} and the projector $\kappa_h(\cdot)$ defined in \Eq{projSZ}. Let us assume that the solution $u$ of \Eq{probcont} belongs to $L^\infty(0,T;H^l(\Omega))$ for $l \leq k+1$, and $\beta\in L^\infty(0,T;{H}^s(\Omega))$ for $s>\max \{ l -1, \frac{d}{2}\}$. Then, the following error estimate holds for any $t^* \in (0,T)$:
 \begin{align*}
-& \|(u_h-u)(t^*)\| + \| \delta^\frac{1}{2}  \szpp (\bb \cdot\nabla  (u_h-u)) \|_{L^2(\Qq)}   \cl \quad &\lesssim    h^{l} \|u(t^*)\|_{H^l(\Omega)}  +  h^{l-\half} \|\bb\|_{L^{\infty}(\Qq)}^\half \|u\|_{L^2(0,t^*;H^l(\Omega))}
-+ h^{l-\half}  \| C_\beta(t) \|u\|_{H^l(\Omega)} \|_{L^2(0,t^*)},
+ &\|(u_h-u)(t^*)\| + \| \delta^\frac{1}{2}  \szpp (\bb \cdot\nabla  (u_h-u)) \|_{L^2(\Qq)}   \\
+&\quad \lesssim    h^{l} \|u(t^*)\|_{H^l(\Omega)}  +  h^{l-\half} \|\bb\|_{L^{\infty}(\Qq)}^\half \|u\|_{L^2(0,t^*;H^l(\Omega))}
++ h^{l-\half}  \| C_\beta \|u\|_{H^l(\Omega)} \|_{L^2(0,t^*)},
 %+ h^{l-\half} \left \| \frac{\|\bb\|_{H^s(\Omega)} }{  \|\bb\|^\half_{L^\infty(\Omega)}} \|u\|_{H^l(\Omega)} \right \|_{L^2(0,t^*)}.
 %, %\qquad \hbox{for any $t^* \in (0,T)$.}
 \end{align*}
@@ -567,6 +571,7 @@ On the other side, using Lemmata \ref{lem-extrema} and \ref{lem-stracute}, we ca
 &  \leq - c_{\rm gjv}|_K \|\beta\|_{L^\infty(K)} |\nabla u_h| \sigma_K \sin \alpha_K  {\rm meas}(K) \\
 & \leq - \|\beta\|_{L^\infty(K)} |\nabla u_h| \frac{{\rm meas}(K)}{d+1}.
 \end{align*}
+
 Thus $a_h(u_h,\varphi_h^i) \leq 0$ if $u_h$ has a minimum on $x_i$. Similarly, one can prove that $a_h(u_h,\varphi_h^a) \geq 0$ if $u_h$ has a maximum on $x_i$, from what the DMP property follows.
 \end{proof}
 
@@ -610,47 +615,48 @@ $$
 (\partial_t u_h,\phi_h) +   (\nabla \cdot (\beta u_h),\phi_h) + s_h(u_h,\phi_h) + (\varepsilon(u_h) \nabla u_h, \nabla \phi_h) =  (f ,  \phi_h ),
 $$
 
-We propose the following linear and nonlinear stabilization terms.\\
+We propose the following linear and nonlinear stabilization terms.
 
-
-{\bf Linear stabilization:} We consider two different schemes, the wNPS method proposed in this work and the classical SUPG method. 
-\setlength{\leftmargini}{0pt}
-\begin{itemize}
-\item  wNPS: We have two alternative versions of the symmetric stabilization term, namely 
+{\bf Linear stabilization:} We consider two different schemes, the wNPS method proposed in this work and the classical SUPG method. \\
+%\setlength{\leftmargini}{0pt}
+\begin{algorithmic}[1]
+\State wNPS: We have two alternative versions of the symmetric stabilization term, namely
+\begin{displaymath}
+s_h(u_h,\phi_h) = ( \delta \beta \cdot \kappa_h^{\perp}(\nabla u_h), \beta \cdot \kappa_h^{\perp}(\nabla \phi_h))
+\end{displaymath} 
+  or 
 \begin{align*}
-  s_h(u_h,\phi_h) = ( \delta \beta \cdot \kappa_h^{\perp}(\nabla u_h), \beta \cdot \kappa_h^{\perp}(\nabla \phi_h)) \quad \hbox{or} \quad 
-s_h(u_h,\phi_h) = ( \delta \kappa_h^{\perp}(\nabla\cdot (\beta u_h)),  \kappa_h^{\perp}(\nabla\cdot (\beta \phi_h)), 
+s_h(u_h,\phi_h) = & ( \delta \kappa_h^{\perp}(\nabla\cdot (\beta u_h)),  \kappa_h^{\perp}(\nabla\cdot (\beta \phi_h)), 
 \end{align*}
 where $\kappa_h$ is the Scott-Zhang projector in \Eq{dualfunct}-\Eq{projSZ}, the node-to-element mapping $\varsigma$ is arbitrary and 
 \begin{align*}%\label{eq-tildeltaSZ}
 \delta|_K = \frac{c_\delta h_K}{\|\beta\|_{L^\infty(K)}}\left(1-\max_{a \in \mathcal{S}_h(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q\right).
 \end{align*}
-\item SUPG: The SUPG stabilization term reads as
+\State SUPG: The SUPG stabilization term reads as
 \begin{align*}%\label{eq-supg}
-s_h(u_h,\phi_h) = \sum_{K \in \mathcal{T}_h} c_{\delta} {h_K}{\| \beta \|_{L^\infty(K)}^{-1}}( \partial_t u_h + \nabla \cdot (\beta u_h), \nabla \cdot (\beta  \phi_h)), \nonumber 
+s_h(u_h,\phi_h) = \sum_{K \in \mathcal{T}_h} c_{\delta} {h_K}{\| \beta \|_{L^\infty(K)}^{-1}}( \partial_t u_h + \nabla \cdot (\beta u_h), \nabla \cdot (\beta  \phi_h)). \nonumber 
 \end{align*}
-assuming that $\| \beta \|_{L^\infty(K)}>0$. If not, the contribution of the term corresponding to $K$ is $0$. 
-\end{itemize}
-In both cases, we take $c_\delta = 1/2$.
+If $\| \beta \|_{L^\infty(K)}=0$, the contribution of the term corresponding to the element $K$ is $0$. 
+\end{algorithmic}
 
-{\bf Nonlinear stabilization:} We propose two different GJV shock-capturing schemes and we test them against the RV and EV schemes.
-\setlength{\leftmargini}{0pt}
-\begin{itemize}
-\item nGJV: In the nodal GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
+In both cases, we take $c_\delta = 1/2$.\\
+
+\textbf{Nonlinear stabilization:} We propose two different GJV shock-capturing schemes and we test them against the RV and EV schemes.
+%\setlength{\leftmargini}{0pt}
+\begin{algorithmic}[1]
+\State nGJV: In the nodal GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
 \begin{align*}%\label{eq-gjvisc0}
 \varepsilon(u_h)|_K = c_{\rm gjv}|_K h_K \|\beta\|_{L^\infty(K)} \max_{a \in \setnodes(K)}\left(\frac{ \jump{\nabla u_h}_a }{2\mean{|\nabla u_h|}_a}\right)^q,
 \end{align*}
 where $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin (\pi/6)}$. %In order to satisfy the DMP on acute meshes, we take $c_{\rm gjv} = \frac{1}{(d+1) \sigma_K \sin \alpha_K}$, with the definition of $\alpha_K$ in \Eq{gjvisc0}.
-\item bGJV: In the boundary GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
+\State bGJV: In the boundary GJV scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as
 \begin{align*}%\label{eq-gjvisc}
 \varepsilon(u_h)|_K = \tilde c_{\rm gjv} h \|\beta\|_{L^\infty(K)} \max_{e \in \partial K}\left[\frac{\int_e |\nabla u_h \cdot n|{\rm d} \sigma}{\int_e |\nabla u_h| {\rm d} \sigma}\left(\frac{\int_e  | \jump{\nabla u_h}|{\rm d} \sigma }{ 2 \int_e \mean{|\nabla u_h \cdot n|} {\rm d} \sigma}\right)^q\right],
 \end{align*}
 where $\tilde c_{\rm gjv} = 1/2$.
-\item EV: The EV scheme is defined in \Eq{ev} with $\eta(u_h) = (u_h-0.5)^2$ and $\psi(u_h) = \beta(u_h-0.5)^2$, $c_{\rm ent} = 0.1$ and $c_{\rm max}=0.15$. 
-\item RV: In the RV  scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as $\varepsilon(u_h)|_K = \nu_K(u_h) |\mathcal{R}(u_h)|^q$ where
-
- $\nu_K$ is defined in \Eq{isosc} with $l_K^{\rm iso}=0.6$ and $\tau_K^{\rm iso}=0$.
-\end{itemize}
+\State EV: The scheme is defined in \Eq{ev} with $\eta(u_h) = (u_h-0.5)^2$, $\psi(u_h) = \beta(u_h-0.5)^2$, $c_{\rm ent} = 0.1$ and $c_{\rm max}=0.15$. 
+\State RV: In the RV  scheme the artificial diffusion is defined at $K \in \mathcal{T}_h$ as $\varepsilon(u_h)|_K = \nu_K(u_h) |\mathcal{R}(u_h)|^q$ where $\nu_K$ is defined in \Eq{isosc} with $l_K^{\rm iso}=0.6$ and $\tau_K^{\rm iso}=0$.
+\end{algorithmic}
 \caption{Combination of linear stabilization and shock-capturing techniques\label{alg-wNPS-GJV}}
 \end{algorithm}
 

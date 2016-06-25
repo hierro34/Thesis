@@ -3,11 +3,11 @@
 
 \section{Introduction}
 
-It is well known that the operator $L$ associated to an elliptic problem such as the convection-diffusion problem enjoys the maximum property, meaning that the maximum (resp., minimum) of the solution to the problem $Lu=f$ is achieved on the boundary of the domain if the source term, $f$, is negative (resp., positive). 
+As it was already exposed in the previous chapter, it is well known thet the operator $L$ associated to an elliptic problem such as the convection-diffusion problem enjoys the maximum property, meaning that the maximum (resp., minimum) of the solution to the problem $Lu=f$ is achieved on the boundary of the domain if the source term, $f$, is negative (resp., positive). 
 %Moreover, under certain extra regularity conditions, the operator enjoys the strong maximum principle meaning that the solution has no local maximum (resp., minimum) in the interior of the domain if $f\leq 0$ (resp., $f\geq 0$) .
-In particular, this property ensures that the solution of the problem will not show oscillations. It is well known that the solution of a convection-dominated problem may present sharp layers that may induce spurious oscillations in the discrete approximation of the solution. We are interested in finding a method that ensures a similar maximum property at the discrete discontinuous level in order to obtain a method that gives oscillation free solutions.
+In particular, this property ensures that the solution of the problem will not show oscillations. The solution of a convection-dominated problem may present sharp layers that may induce spurious oscillations in the discrete approximation of the solution. We are interested in finding a method that ensures a similar maximum property at the discrete discontinuous level in order to obtain a method that gives oscillation free solutions.
 
-When the problem is discretized, this maximum property may be inherited by what is called \textit{discrete maximum principle} (DMP). Several definitions of the DMP have been proposed in the literature for continuous discrete approximations (see \cite{codina_discontinuity-capturing_1993,hohn_remarks_1981,varga_discrete_1966,burman_edge_2004,roos_robust_2008}). Some of them are equivalent while some others are weaker or stronger. There is also a lot of literature about the conditions on the mesh for the Poisson problem to enjoy the DMP \cite{hohn_remarks_1981,vejchodsky_discrete_2007,horvath_discrete_2013,payette_performance_2012} as well as discrete methods specially implemented to fulfil such property. Methods have been designed for linear finite differences \cite{ciarlet_discrete_1970} and continuous linear finite elements \cite{ciarlet_maximum_1973,codina_discontinuity-capturing_1993,mizukami_petrov-galerkin_1985,burman_discrete_2004,burman_edge_2004,burman_stabilized_2005}. {These methods are implicit in sense, and usually based on the addition of AV to the problem at hand; they are traditionally called shock (or discontinuity)-capturing techniques, even though we favour the notation \emph{nonlinear stabilization}.} 
+As we have previously explained, when the problem is discretized, this maximum property may be inherited by what is called \textit{discrete maximum principle} (DMP). Several definitions of the DMP have been proposed in the literature for continuous discrete approximations (see \cite{codina_discontinuity-capturing_1993,hohn_remarks_1981,varga_discrete_1966,burman_edge_2004,roos_robust_2008}). Some of them are equivalent while some others are weaker or stronger. There is also a lot of literature about the conditions on the mesh for the Poisson problem to enjoy the DMP \cite{hohn_remarks_1981,vejchodsky_discrete_2007,horvath_discrete_2013,payette_performance_2012} as well as discrete methods specially implemented to fulfil such property. Methods have been designed for linear finite differences \cite{ciarlet_discrete_1970} and continuous linear finite elements \cite{ciarlet_maximum_1973,codina_discontinuity-capturing_1993,mizukami_petrov-galerkin_1985,burman_discrete_2004,burman_edge_2004,burman_stabilized_2005}. {These methods are implicit in sense, and usually based on the addition of AV to the problem at hand; they are traditionally called shock (or discontinuity)-capturing techniques, even though we favour the notation \emph{nonlinear stabilization}.} 
 %There is also a interesting simple approach to the problem given by Kreuzer \cite{kreuzer_note_2012} consisting on applying a simple cutoff to the solution but it can not be applied in an implicit code and moreover it only works when the maximum and the minimum of the problem are known beforehand. 
 Some approaches to prove a DMP using piecewise higher order polynomials have been done \cite{nagarajan_enforcing_2011,payette_performance_2012,kuzmin_design_2008,vejchodsky_discrete_2007,vejchodsky_higher-order_2010,yanik_discrete_1987,yanik_sufficient_1989} but only the Poisson problem has been proved to enjoy the DMP and only on certain one-dimensional (1D) meshes \cite{vejchodsky_discrete_2007} and on very restrictive quadratic and cubic two dimensional meshes \cite{lorenz_zur_1977,hohn_remarks_1981}. When it comes to discontinuous methods, most of the shock capturing techniques are based on the concept of slope limiter, proposed by Cockburn and Shu for conservation laws \cite{cockburn_rungekutta_1998,cockburn_runge-kutta_1990} and latter adapted to the convection-dominated convection-diffusion problem  \cite{cockburn_rungekutta_2001}. The same strategy can be applied to finite volume methods (see \cite{zhang_maximum-principle-satisfying_2010,zhang_maximum-principle-satisfying_2011,zhang_maximum-principle-satisfying_2012}). Again, these methods consist in a postprocess after the solution is computed and are designed for explicit methods. {However, as far as we know, there are no works dealing with nonlinear stabilization and implicit DMP-preserving dG formulations. In fact, even the definition of what a DMP for dG means is open.}
 
@@ -20,7 +20,7 @@ Concerning to the study of the DMP for the Poisson problem in the dG setting, th
 {The aim of this work is twofold. On one side, we propose a new (variational) definition of the DMP for dG, {and we prove that it is a sufficient condition to have the the minimum/maximum (depending on the sign of the forcing term) on the boundary for multidimensional problems}. The new definition is stronger than the one given in \cite{horvath_discrete_2013} and it is, in some sense, closer to the one used in \cite{burman_nonlinear_2007} for the 1D continuous Galerkin (cG) discretization of the Burgers' equation. On the other hand, we construct a multidimensional nonlinear stabilization based on AV for dG methods and prove that, when restricted to the 1D case, the nonlinear stabilization combined with an incomplete (or weighted) IP dG method with upwinding is capable to ensure our DMP for the discrete dG solution of \Eq{strongform}. In any case, numerical experiments evindence that the method also satisfies the DMP in the multidimensional case.}
 
 
-The outline of the article is the following. In Section \ref{s-contprob} we introduce the continuous convection-diffusion problems and its Galerkin discretization using finite elements. The IP dG method for the Laplacian is presented in Section \ref{s-ip}. Our novel definition of the DMP for the dG scheme is proposed in Section \ref{s-dmp} and some good properties derived from it are stated. Moreover, in Subsection \ref{ss-dmp}, we prove that the IP method for the Laplacian enjoys the DMP in the 1D case. The extension of the IP method for the convection-diffusion problem  is given in Section \ref{s-cd}. In Section \ref{s-ad}, an AV technique is proposed for the 1D case, and we prove that it satisfies the DMP. Further, we extend the method to the multidimensional case. Numerical experiments are included in Section \ref{s-numex}. Finally, some conclusions are drawn in Section \ref{s-concl}.
+The outline of the article is the following. In Section \ref{s-contprob} we introduce the continuous convection-diffusion problems and its Galerkin discretization using finite elements. The IP dG method for the Laplacian is presented in Section \ref{s-ip}. Our novel definition of the DMP for the dG scheme is proposed in Section \ref{s-dmp} and some good properties derived from it are stated. Moreover, in Subsection \ref{ss-dmp}, we prove that the IP method for the Laplacian enjoys the DMP in the 1D case. The extension of the IP method for the convection-diffusion problem  is given in Section \ref{s-cd}. In Section \ref{s-ad}, an AV technique is proposed for the 1D case, and we prove that it satisfies the DMP. Further, we extend the method to the multidimensional case. Numerical experiments are included in Section \ref{s-numex2}. Finally, some conclusions are drawn in Section \ref{s-concl_2}.
 
 
 \section{Weak Form and Notation}\label{s-contprob}
@@ -374,7 +374,7 @@ Notice that $s_\alpha(x_i) = 1$ $\forall \alpha\in \Gamma_i^K$ does not necessar
 On the other hand, given the cost of computing $\inf_{\alpha\in\Gamma_i^K} s(x_i^\alpha)$, we can avoid its computation by taking the minimum with respect to edge directions only (at both sides of the edge). This simplification leads to a very slightly different method, but the simplified definition still enjoys the property that $s_K=1$ if $u_h$ has a local discrete extremum in $K$. 
 
 \begin{remark} {
-We have designed a shock detector that ensures that there is the maximum amount of viscosity around a local discrete extremum. However, it is unclear how to prove the DMP for the multidimensional case, since it is not even available for the Laplacian problem. (It is due to the sign of the IP term, that cannot be determined.) In any case, looking at the results in Section \ref{s-numex}, the DMP holds in practice for the same mesh conditions stated in \cite{ourpaper}.
+We have designed a shock detector that ensures that there is the maximum amount of viscosity around a local discrete extremum. However, it is unclear how to prove the DMP for the multidimensional case, since it is not even available for the Laplacian problem. (It is due to the sign of the IP term, that cannot be determined.) In any case, looking at the results in Section \ref{s-numex2}, the DMP holds in practice for the same mesh conditions stated in \cite{ourpaper}.
 }
 \end{remark}
 
@@ -382,7 +382,7 @@ We have designed a shock detector that ensures that there is the maximum amount 
 
 
 
-\section{Numerical results}\label{s-numex}
+\section{Numerical results}\label{s-numex2}
 \label{sec-numres}
 For the following test, if nothing is said, the value of the parameters used will be { $q=10$}, $c^{ip} = 10$ and $\nu=0.5$. The choice of the last two parameters is explained in the first numerical experiment.
 
@@ -432,11 +432,11 @@ The next problem is a 1D first-order diferential equation ($\mu=0$) inspired by 
 with $u(0) = 0$. The solution to this problem is $u=0.5 \left(\tanh\left((x-0.5)/\epsilon\right)+1\right)$; it shows a sharp layer around $x=0.5$. Since the source is positive in the whole domain, we expect the stabilized method not to have any local discrete minimum in $\Omega$. 
 \begin{figure}
 \centering
-\subfigure[Solution of \Eq{1dnumexp}. $N=20$.]{\includegraphics[width=8cm]{Figures/paper2/09_steadyadv.pdf}\label{fig-pulse1}}%
+\subfigure[Solution of \Eq{1dnumexp}. $N=20$.]{\includegraphics[width=8cm]{Figures/paper2/09_steadyadv.pdf}\label{fig-pulse1d}}%
 \subfigure[Smooth convergence]{\includegraphics[width=8cm]{Figures/paper2/10_smooth_conv_2D.pdf}\label{fig-smoothconv}}
 \caption{}
 \end{figure}
-In \Fig{pulse1}, it can be appreciated how the DMP is violated for the IP dG method without extra viscosity while it is not when the appropiate viscosity is added. Moreover the layer is captured with the same amount of elements in both cases, so the method is not too much diffusive.
+In \Fig{pulse1d}, it can be appreciated how the DMP is violated for the IP dG method without extra viscosity while it is not when the appropiate viscosity is added. Moreover the layer is captured with the same amount of elements in both cases, so the method is not too much diffusive.
 
 \subsection{Convergence of a smooth solution}
 
@@ -470,19 +470,19 @@ it is possible to converge with tolerance $10^{-8}$ with respect to the norm of 
 
 \subsection{Multidimensional transport problem}\label{sec-num2d}
 
-Finally, a pure convection problem will be used in order to show the performance of the method; let us note that the present numerical analysis does apply for the case $\mu = 0$. The test consists in solving the two dimensional transport problem $\partial_t u +   \nabla \cdot (\beta u) = 0$  in $[0,1]^2 \times [0,T]$, $\bb=(-2\pi (y-0.5), 2\pi (x-0.5))$. The solution of this equation is a displacement of the initial solution around the center of the square. The solution is computed at $T=1$ after a complete cycle. The initial solution is given in \cite{dmitri_kuzmin_guide_2010} and its interpolation in a mesh of $250\times250$ bilinear elements is displayed in \Fig{kuzmin0}. 
+Finally, a pure convection problem will be used in order to show the performance of the method; let us note that the present numerical analysis does apply for the case $\mu = 0$. The test consists in solving the two dimensional transport problem $\partial_t u +   \nabla \cdot (\beta u) = 0$  in $[0,1]^2 \times [0,T]$, $\bb=(-2\pi (y-0.5), 2\pi (x-0.5))$. The solution of this equation is a displacement of the initial solution around the center of the square. The solution is computed at $T=1$ after a complete cycle. The initial solution is given in \cite{dmitri_kuzmin_guide_2010} and its interpolation in a mesh of $250\times250$ bilinear elements is displayed in \Fig{kuzmin0_2}. 
 
 \begin{figure}%
 \centering
-\subfigure[Nodally exact initial solution]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=10cm]{Figures/paper2/14_inisol.pdf}\label{fig-kuzmin0}}%
-\subfigure[Error regions]{\includegraphics[clip=true, trim=0cm 0cm 0cm 6.5cm,width=6cm]{Figures/paper2/15_error_regions.pdf}\label{fig-err_reg}}
-\caption{Multidimensional transport problem in a $250\times 250 (\times 2)$ mesh}\label{fig-algo}
+\subfigure[Nodally exact initial solution]{\includegraphics[clip=true, trim=1.6cm 11cm 1.6cm 3cm,width=10cm]{Figures/paper2/14_inisol.pdf}\label{fig-kuzmin0_2}}%
+\subfigure[Error regions]{\includegraphics[clip=true, trim=0cm 0cm 0cm 6.5cm,width=6cm]{Figures/paper2/15_error_regions.pdf}\label{fig-err_reg_2}}
+\caption{Multidimensional transport problem in a $250\times 250 (\times 2)$ mesh}\label{fig-algo_2}
 \end{figure}
 
 
 The solution is discretised with a $100 \times 100 (\times 2)$ triangular mesh and the integration in time is performed using Crank-Nicolson with time step $\Delta t = 2.5\cdot 10^{-4}$ and without mass lumping. The result can be compared with the original dG method and also with the results obtained in a finer mesh in the continuous case, using a similar shock capturing designed in \cite{ourpaper} and denoted as boundary gradient jump viscosity (bGJV). { If the reader is interested in comparing the results with some other state-of-art methods, like residual-based and entropy-viscosity methods, we refer to \cite{ourpaper}, where the results for the same tests are provided}. 
 
-For the continuous case, the mesh consists of $250\times 250 (\times 2)$ elements and more than $60,000$ nodes, which is the number of nodes of the discontinuous case. The AV is computed semi-implicitly. The results are displayed in \Fig{triangle1} and it can be observed that, in comparison with the original result, the AV does a good job removing the oscillations on the top of the cylinder. On the other hand, it damps the solution around the top of the cone and the hump by activating unnecessarily the viscosity. This problem is avoided by refining the mesh as it is the case for the continuous method (see \Fig{finner}). 
+For the continuous case, the mesh consists of $250\times 250 (\times 2)$ elements and more than $60,000$ nodes, which is the number of nodes of the discontinuous case. The AV is computed semi-implicitly. The results are displayed in \Fig{triangle1_2} and it can be observed that, in comparison with the original result, the AV does a good job removing the oscillations on the top of the cylinder. On the other hand, it damps the solution around the top of the cone and the hump by activating unnecessarily the viscosity. This problem is avoided by refining the mesh as it is the case for the continuous method (see \Fig{finner}). 
 
 \begin{figure}%
 \centering
@@ -490,15 +490,15 @@ For the continuous case, the mesh consists of $250\times 250 (\times 2)$ element
 \subfigure[dG+AD]{\includegraphics[clip=true, trim=7.5cm 3cm 9cm 6cm, width=8cm]{Figures/paper2/17_3body_dgngjv.pdf}}
 \subfigure[cG+SUPG+bGJV]{\includegraphics[clip=true, trim=7.5cm 3cm 9cm 6cm, width=8cm]{Figures/paper2/18_3body_cgngjv.pdf}}%
 \subfigure[dG+AD finer mesh]{\includegraphics[clip=true, trim=7.5cm 3cm 9cm 6cm,width=8cm]{Figures/paper2/19_3body_dgngjv_finner.pdf}\label{fig-finner}}
-\caption{ Results at $t = 1.0$. Space discretization with $p=1$ and $\approx 60000$ DOFs ($100\times 100 (\times 2)$ and $250\times 250 (\times 2)$ triangular mesh). Time discretization with Crank-Nicolson, $\Delta t = 2.5 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 1 $.}\label{fig-triangle1}
+\caption{ Results at $t = 1.0$. Space discretization with $p=1$ and $\approx 60000$ DOFs ($100\times 100 (\times 2)$ and $250\times 250 (\times 2)$ triangular mesh). Time discretization with Crank-Nicolson, $\Delta t = 2.5 \cdot 10^{-4}$ and without mass lumping. Results for different schemes at $t = 1 $.}\label{fig-triangle1_2}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[clip=true, width=12cm]{Figures/paper2/20_3body_OSC.pdf}
-\caption{OSC evolution}\label{fig-osc}
+\caption{OSC evolution}\label{fig-osc_2}
 \end{figure}
-The $L^2$ error after one cycle has been computed in $4$ different regions, namely $\Omega_1$, $\Omega_2$, $\Omega_3$, $\Omega_4$, corresponding to the ones plotted in \Fig{err_reg}. { The first three regions correspond to the elements of the mesh such that the centroid of their Gauss points are at distance $2\cdot 10^{-2}$ or less to a discontinuity or change of gradient of the exact solution. The region $\Omega_4$ is simply the rest of the domain.} 
+The $L^2$ error after one cycle has been computed in $4$ different regions, namely $\Omega_1$, $\Omega_2$, $\Omega_3$, $\Omega_4$, corresponding to the ones plotted in \Fig{err_reg_2}. { The first three regions correspond to the elements of the mesh such that the centroid of their Gauss points are at distance $2\cdot 10^{-2}$ or less to a discontinuity or change of gradient of the exact solution. The region $\Omega_4$ is simply the rest of the domain.} 
 %the boundaries and points where there is a sharp change of slope of each of the three bodies of the solution.} The error is similarly distributed in both cases but it is a bit larger in the shock capturing case. 
 
 \begin{table}
@@ -512,15 +512,15 @@ Incomplete dG &  6.672e-002 & 2.331e-003 & 1.329e-004 &   1.027e-002\\
 Incomplete dG + shock capturing &   7.452e-002 & 4.355e-003 & 1.480e-003 & 1.712e-002\\
 \hline
 \end{tabular}
-\caption{ $\|u-u_h\|_{\Omega_i}$}\label{tab-ex15_malla2D_new}
+\caption{ $\|u-u_h\|_{\Omega_i}$}\label{tab-ex15_malla2D_new_2}
 \end{table}
-The results reported in \Fig{triangle1} are at the final stage of the computation, i.e., $t=1$, and the oscillations have already been smoothed out. In order to better evaluate how the different methods succeed eliminating oscillations, we introduce the oscillation function
+The results reported in \Fig{triangle1_2} are at the final stage of the computation, i.e., $t=1$, and the oscillations have already been smoothed out. In order to better evaluate how the different methods succeed eliminating oscillations, we introduce the oscillation function
 \begin{align*}
 &{\rm osc}(t) = \max_{(x,y)\in \Omega} \left\{0 , u_h(x,y,t) - 1 , -u_h(x,y,t) \right\}.
 \end{align*}
-We compute the mean value of the parameter ${\rm osc(t)}$ in bunches of $50$ time steps and the time evolution of this quantity for the different methods is plotted in \Fig{osc}. Clearly, the nonlinearly stabilized dG formulation defined herein beats by far the other two methods in terms of DMP violation; after the first 50 steps the method has already reduced the oscillation below $10^{-3}$.  
+We compute the mean value of the parameter ${\rm osc(t)}$ in bunches of $50$ time steps and the time evolution of this quantity for the different methods is plotted in \Fig{osc_2}. Clearly, the nonlinearly stabilized dG formulation defined herein beats by far the other two methods in terms of DMP violation; after the first 50 steps the method has already reduced the oscillation below $10^{-3}$.  
 
-\section{Conclusions}\label{s-concl}
+\section{Conclusions}\label{s-concl_2}
 
 
 When considering dG methods for steady problems or transient problems via (semi-)implicit time integration, the use of traditional limiting techniques is not suitable in many instances. In this work, we propose dG formulations that satisfy some kind of monotonicity properties based on implicit nonlinear stabilization (AV-type terms). The analysis of monotonicity properties and discrete maximum principles in the frame of dG formulations (without additional postprocessing) is a quite unexplored area; as far as we know there are only some attempts to prove a DMP for the Laplacian problem in $1$D (see \cite{horvath_discrete_2013}). For this reason, we have started our work defining the notion of local discrete extrema in dG; since the numerical solution is discontinuous on nodes, this concept is somehow open. Next, we propose a definition of DMP property for dG, and show that when the dG formulation enjoys this property, the maximum/minimum is on the boundary (given a  negative/positive forcing term) for steady problems in the multidimensional case. Further, the method is LED for transient problems. Further we show that for the 1D Poisson problem, the incomplete IP dG formulation satisfies the DMP property. In order to make symmetric/antisymmetric IP versions to enjoy the DMP, a weighted version of these formulations is also proposed.
