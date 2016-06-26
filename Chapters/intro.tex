@@ -19,3 +19,62 @@ The origin of continuous and discontinuous Galerkin. The amount of work related 
 In all of the cases a gradient jump viscosity shock detectors are implemented. The definition of those detectors can be generalized and applied either for continuous and discontinuous methods. This property is very interesting specially for hybrid meshes such as the continuous-discontinuous Galerkin method introduced in \cite{badia_adaptive_2013} for dealing with hanging nodes in adaptive meshes. In this sense, in chapter \ref{chap-paper3}, there is a possible approach to deal with the adaptive paradigm.
 
 The present thesis aims to be the first compilation of different applications that take use of the Gradient Jump Viscosity shock detectors in order to implement Discrete Maximum Principle enjoying methods.
+
+\section{Intro paper 1}
+
+The finite element (FE) Galerkin approximation of convection-dominated and transport problems
+with non-smooth data produces highly oscillatory results, and additional numerical stabilization must be
+introduced. The most rudimentary stabilization methods add non-consistent terms, e.g., homogeneous artificial diffusion and upwinding techniques \cite{von_neumann_method_1950}. 
+The SUPG method originally proposed in \cite{brooks_streamline_1982} was the first consistent stabilization technique, 
+allowing for higher order approximations. Since this groundbreaking
+work, the amount of research produced on linear stabilization has been impressive, leading to a wide 
+variety of formulations (see, e.g., \cite{hughes_variational_1998,codina_finite_1997,becker_finite_2001,guermond_stabilization_1999}). 
+%Remarkable works are the concept of subgrid stabilization in \cite{}, the variational
+%multiscale paradigm in \cite{hughes_variational_1998} or the symmetric projection stabilization techniques in \cite{codina_finite_1997,becker_finite_2001}.
+
+We can roughly distinguish between linear stabilization methods based on FE residuals 
+and methods based on projections. Residual-based methods include the
+SUPG, GLS, and VMS formulations \cite{hughes_multiscale_1995,hughes_variational_1998} proposed by Hughes and co-workers. These
+methods are consistent by definition and exhibit optimal convergence and stability properties.
+However, these methods can be cumbersome for complex systems of equations, specially
+in multiphysics \cite{planas_approximation_2011,badia_unconditionally_2013}, where the number of stabilization terms to be integrated 
+notably increases; only some terms do introduce stability whereas the rest are only required
+to keep consistency. These additional terms can couple unknowns that are uncoupled
+at the con\-ti\-nuous level, destroy symmetric properties and  make unstable segregated
+algorithms \cite{badia_unconditionally_2013}. Furthermore, the extension of these methods to transient problems is
+involved unless space-time discretizations are considered \cite{codina_time_2007,burman_consistent_2010}. 
+
+
+% Modify the sentece since the introduction
+% In fact, for the sake of convergenge, only the projection orthogonal to the FE space is used.
+In order to solve all these problems, symmetric projection stabilization only introduces the terms that are required for stability purposes. More specifically, it only provides stability of the projection orthogonal to the FE space, so that the stabilization terms do not spoil the convergence of the method. %Since the introduction of the whole quantities to be stabilized, e.g. the convective term, would spoil convergence, the projection of these quantities onto the corresponding FE space is subtracted.  
+This way, we keep convergence and attain the desired stability, e.g., relying on continuous inf-sup conditions. The key aspect of these methods is the choice of the projector. One example  is the orthogonal subscales method in \cite{codina_stabilization_2000}, which uses a (global) $L^2$ projection. In order to avoid the need of a global projection, local projection stabilization techniques have been proposed, e.g., in \cite{braack_local_2006,matthies_unified_2007}. The resulting methods only involve local projections but are restricted to particular mesh topologies or require enriched FE spaces. A recent improvement of these formulations has been recently proposed in \cite{badia_stabilized_2012} for pressure stability of the Stokes problem, which makes use of  a particular Scott-Zhang projector which is local and does not require any particular type of mesh or FE space enrichment; this method has been named \emph{nodal projection stabilization} (NPS), due to the nodal-wise nature of the projection. A closely related term-by-term pressure/convection stabilization has been presented in \cite{rebollo_high_2013}. The main difference between the stabilization mechanism in \cite{badia_stabilized_2012} and  \cite{rebollo_high_2013} is the \emph{buffer} FE space in which the projections are performed. The buffer space in \cite{badia_stabilized_2012} is the same velocity FE space, whereas  it has one order less than the velocity space (assumed to be at least quadratic) in \cite{rebollo_high_2013}.
+
+ %This method coincides with the nodal interpolation proposed by Chac\'on \textit{et al.} in \cite{rebollo_high_2013}.
+
+
+Linear stabilization certainly reduces oscillations but still exhibits overshoots and undershoots around discontinuities or shocks. As a result, nonlinear stabilization techniques (traditionally called shock-capturing) have been designed, usually in the form of an artificial viscosity that depends on the solution (see, e.g., \cite{johnson_convergence_1987,johnson_convergence_1990,szepessy_convergence_1989}). This nonlinear viscosity must be active around shocks, where it sacrifices the order of accuracy of the method but improves stability. The way this artificial viscosity is computed leads to different families of methods. Most methods are based on residual-based viscosity \cite{codina_stabilization_2000,lube_residual-based_2006,john_spurious_2007,john_spurious_2008} combined with linear stabilization. Guermond and co-workers have proposed entropy-viscosity methods, %have recently been proposed by Guermond and co-workers,
+ in which the nonlinear viscosity is defined in terms of some entropy inequality \cite{guermond_entropy_2011}. %Convergence analysis and monotonic properties of EV methods are an open problem.
+
+The aim of the nonlinear stabilization is to eliminate oscillations around shocks, which implies to satisfy a discrete maximum principle (DMP). Only a few FE methods are known to satisfy some monotonicity property (see, e.g., \cite{mizukami_petrov-galerkin_1985,burman_nonlinear_2002,burman_stabilized_2005}). It is remarkable the work by Burman and Ern in \cite{burman_nonlinear_2002}, where they state the properties to be fulfilled by a method in order to satisfy a DMP property in a useful variational setting for nonlinear problems. The methods in \cite{burman_stabilized_2005,burman_edge_2004} satisfy a DMP property for the steady-state convection-diffusion-reaction (CDR) problem but it has been observed that they are too dissipative for practical use in \cite{john_spurious_2008} and the extension to time-dependent problems is unclear. Afterwards, Burman has proposed in \cite{burman_nonlinear_2007} a method which only includes nonlinear stabilization and satisfies monotonicity properties for the (transient) Burgers' problem in one dimension. %Another approach is the ??? method  by Kuzmin, %which essentially modifies the resulting matrix in order to attain the DMP property.  
+Existence and uniqueness have been proved for some residual-based shock-capturing techniques combined with local
+projection stabilization via Lipschitz continuity and Brouwer's fixed point theorem in \cite{barrenechea_local_2013}.
+
+%the resulting method satisfies a DMP but it has been observed
+%to be too dissipative for practical use in \cite{}. In \cite{}, 
+
+\section{Intro paper 2}
+
+As it was already exposed in the previous chapter, it is well known that the operator $L$ associated to an elliptic problem such as the convection-diffusion problem enjoys the maximum property, meaning that the maximum (resp., minimum) of the solution to the problem $Lu=f$ is achieved on the boundary of the domain if the source term, $f$, is negative (resp., positive). 
+%Moreover, under certain extra regularity conditions, the operator enjoys the strong maximum principle meaning that the solution has no local maximum (resp., minimum) in the interior of the domain if $f\leq 0$ (resp., $f\geq 0$) .
+In particular, this property ensures that the solution of the problem will not show oscillations. The solution of a convection-dominated problem may present sharp layers that may induce spurious oscillations in the discrete approximation of the solution. We are interested in finding a method that ensures a similar maximum property at the discrete discontinuous level in order to obtain a method that gives oscillation free solutions.
+
+As we have previously explained, when the problem is discretized, this maximum property may be inherited by what is called \textit{discrete maximum principle} (DMP). Several definitions of the DMP have been proposed in the literature for continuous discrete approximations (see \cite{codina_discontinuity-capturing_1993,hohn_remarks_1981,varga_discrete_1966,burman_edge_2004,roos_robust_2008}). Some of them are equivalent while some others are weaker or stronger. There is also a lot of literature about the conditions on the mesh for the Poisson problem to enjoy the DMP \cite{hohn_remarks_1981,vejchodsky_discrete_2007,horvath_discrete_2013,payette_performance_2012} as well as discrete methods specially implemented to fulfil such property. Methods have been designed for linear finite differences \cite{ciarlet_discrete_1970} and continuous linear finite elements \cite{ciarlet_maximum_1973,codina_discontinuity-capturing_1993,mizukami_petrov-galerkin_1985,burman_discrete_2004,burman_edge_2004,burman_stabilized_2005}. {These methods are implicit in sense, and usually based on the addition of AV to the problem at hand; they are traditionally called shock (or discontinuity)-capturing techniques, even though we favour the notation \emph{nonlinear stabilization}.} 
+%There is also a interesting simple approach to the problem given by Kreuzer \cite{kreuzer_note_2012} consisting on applying a simple cutoff to the solution but it can not be applied in an implicit code and moreover it only works when the maximum and the minimum of the problem are known beforehand. 
+Some approaches to prove a DMP using piecewise higher order polynomials have been done \cite{nagarajan_enforcing_2011,payette_performance_2012,kuzmin_design_2008,vejchodsky_discrete_2007,vejchodsky_higher-order_2010,yanik_discrete_1987,yanik_sufficient_1989} but only the Poisson problem has been proved to enjoy the DMP and only on certain one-dimensional (1D) meshes \cite{vejchodsky_discrete_2007} and on very restrictive quadratic and cubic two dimensional meshes \cite{lorenz_zur_1977,hohn_remarks_1981}. When it comes to discontinuous methods, most of the shock capturing techniques are based on the concept of slope limiter, proposed by Cockburn and Shu for conservation laws \cite{cockburn_rungekutta_1998,cockburn_runge-kutta_1990} and latter adapted to the convection-dominated convection-diffusion problem  \cite{cockburn_rungekutta_2001}. The same strategy can be applied to finite volume methods (see \cite{zhang_maximum-principle-satisfying_2010,zhang_maximum-principle-satisfying_2011,zhang_maximum-principle-satisfying_2012}). Again, these methods consist in a postprocess after the solution is computed and are designed for explicit methods. {However, as far as we know, there are no works dealing with nonlinear stabilization and implicit DMP-preserving dG formulations. In fact, even the definition of what a DMP for dG means is open.}
+
+Concerning to the study of the DMP for the Poisson problem in the dG setting, there is {only} one work by Horv\'ath and Mincsovics \cite{horvath_discrete_2013}; they analyse the fulfilment of certain condition on the stiffness matrix $\mathbf{K}$ that ensure the following property for the 1D interior penalty (IP) method:
+\begin{align*}
+\mathbf{Ku}\leq 0 \quad \Longrightarrow   \quad \max \mathbf{u} \leq \max\{0,\max \mathbf{u}_{\partial \Omega}\}. 
+%\quad \forall u\in\mathbb{R}^{N_h}%\mathcal{C}^2({\Omega})\cap\mathcal{C}(\bar{\Omega}).
+\end{align*} 

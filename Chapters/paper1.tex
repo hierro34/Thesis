@@ -6,49 +6,10 @@
 %with monotonicity properties, which also serve to solve singular limits of 
 %convection-diffusion-reaction problems. We focus on the linear tranport equation
 %and the nonlinear Burgers equation.
+In this first chapter, we will approach the probelm of designing a continuous Galerkin method that enjoys the DMP property. Following the works by Codina, Lube and co workers  \cite{codina_stabilization_2000,lube_residual-based_2006,john_spurious_2007,john_spurious_2008} combined with linear stabilization. Guermond and co-workers have proposed entropy-viscosity methods, %have recently been proposed by Guermond and co-workers,
+ in which the nonlinear viscosity is defined in terms of some entropy inequality \cite{guermond_entropy_2011}
 
-The finite element (FE) Galerkin approximation of convection-dominated and transport problems
-with non-smooth data produces highly oscillatory results, and additional numerical stabilization must be
-introduced. The most rudimentary stabilization methods add non-consistent terms, e.g., homogeneous artificial diffusion and upwinding techniques \cite{von_neumann_method_1950}. 
-The SUPG method originally proposed in \cite{brooks_streamline_1982} was the first consistent stabilization technique, 
-allowing for higher order approximations. Since this groundbreaking
-work, the amount of research produced on linear stabilization has been impressive, leading to a wide 
-variety of formulations (see, e.g., \cite{hughes_variational_1998,codina_finite_1997,becker_finite_2001,guermond_stabilization_1999}). 
-%Remarkable works are the concept of subgrid stabilization in \cite{}, the variational
-%multiscale paradigm in \cite{hughes_variational_1998} or the symmetric projection stabilization techniques in \cite{codina_finite_1997,becker_finite_2001}.
-
-We can roughly distinguish between linear stabilization methods based on FE residuals 
-and methods based on projections. Residual-based methods include the
-SUPG, GLS, and VMS formulations \cite{hughes_multiscale_1995,hughes_variational_1998} proposed by Hughes and co-workers. These
-methods are consistent by definition and exhibit optimal convergence and stability properties.
-However, these methods can be cumbersome for complex systems of equations, specially
-in multiphysics \cite{planas_approximation_2011,badia_unconditionally_2013}, where the number of stabilization terms to be integrated 
-notably increases; only some terms do introduce stability whereas the rest are only required
-to keep consistency. These additional terms can couple unknowns that are uncoupled
-at the con\-ti\-nuous level, destroy symmetric properties and  make unstable segregated
-algorithms \cite{badia_unconditionally_2013}. Furthermore, the extension of these methods to transient problems is
-involved unless space-time discretizations are considered \cite{codina_time_2007,burman_consistent_2010}. 
-
-
-% Modify the sentece since the introduction
-% In fact, for the sake of convergenge, only the projection orthogonal to the FE space is used.
-In order to solve all these problems, symmetric projection stabilization only introduces the terms that are required for stability purposes. More specifically, it only provides stability of the projection orthogonal to the FE space, so that the stabilization terms do not spoil the convergence of the method. %Since the introduction of the whole quantities to be stabilized, e.g. the convective term, would spoil convergence, the projection of these quantities onto the corresponding FE space is subtracted.  
-This way, we keep convergence and attain the desired stability, e.g., relying on continuous inf-sup conditions. The key aspect of these methods is the choice of the projector. One example  is the orthogonal subscales method in \cite{codina_stabilization_2000}, which uses a (global) $L^2$ projection. In order to avoid the need of a global projection, local projection stabilization techniques have been proposed, e.g., in \cite{braack_local_2006,matthies_unified_2007}. The resulting methods only involve local projections but are restricted to particular mesh topologies or require enriched FE spaces. A recent improvement of these formulations has been recently proposed in \cite{badia_stabilized_2012} for pressure stability of the Stokes problem, which makes use of  a particular Scott-Zhang projector which is local and does not require any particular type of mesh or FE space enrichment; this method has been named \emph{nodal projection stabilization} (NPS), due to the nodal-wise nature of the projection. A closely related term-by-term pressure/convection stabilization has been presented in \cite{rebollo_high_2013}. The main difference between the stabilization mechanism in \cite{badia_stabilized_2012} and  \cite{rebollo_high_2013} is the \emph{buffer} FE space in which the projections are performed. The buffer space in \cite{badia_stabilized_2012} is the same velocity FE space, whereas  it has one order less than the velocity space (assumed to be at least quadratic) in \cite{rebollo_high_2013}.
-
- %This method coincides with the nodal interpolation proposed by Chac\'on \textit{et al.} in \cite{rebollo_high_2013}.
-
-
-Linear stabilization certainly reduces oscillations but still exhibits overshoots and undershoots around discontinuities or shocks. As a result, nonlinear stabilization techniques (traditionally called shock-capturing) have been designed, usually in the form of an artificial viscosity that depends on the solution (see, e.g., \cite{johnson_convergence_1987,johnson_convergence_1990,szepessy_convergence_1989}). This nonlinear viscosity must be active around shocks, where it sacrifices the order of accuracy of the method but improves stability. The way this artificial viscosity is computed leads to different families of methods. Most methods are based on residual-based viscosity \cite{codina_stabilization_2000,lube_residual-based_2006,john_spurious_2007,john_spurious_2008} combined with linear stabilization. Guermond and co-workers have proposed entropy-viscosity methods, %have recently been proposed by Guermond and co-workers,
- in which the nonlinear viscosity is defined in terms of some entropy inequality \cite{guermond_entropy_2011}. %Convergence analysis and monotonic properties of EV methods are an open problem.
-
-The aim of the nonlinear stabilization is to eliminate oscillations around shocks, which implies to satisfy a discrete maximum principle (DMP). Only a few FE methods are known to satisfy some monotonicity property (see, e.g., \cite{mizukami_petrov-galerkin_1985,burman_nonlinear_2002,burman_stabilized_2005}). It is remarkable the work by Burman and Ern in \cite{burman_nonlinear_2002}, where they state the properties to be fulfilled by a method in order to satisfy a DMP property in a useful variational setting for nonlinear problems. The methods in \cite{burman_stabilized_2005,burman_edge_2004} satisfy a DMP property for the steady-state convection-diffusion-reaction (CDR) problem but it has been observed that they are too dissipative for practical use in \cite{john_spurious_2008} and the extension to time-dependent problems is unclear. Afterwards, Burman has proposed in \cite{burman_nonlinear_2007} a method which only includes nonlinear stabilization and satisfies monotonicity properties for the (transient) Burgers' problem in one dimension. %Another approach is the ??? method  by Kuzmin, %which essentially modifies the resulting matrix in order to attain the DMP property.  
-Existence and uniqueness have been proved for some residual-based shock-capturing techniques combined with local
-projection stabilization via Lipschitz continuity and Brouwer's fixed point theorem in \cite{barrenechea_local_2013}.
-
-%the resulting method satisfies a DMP but it has been observed
-%to be too dissipative for practical use in \cite{}. In \cite{}, 
-
-The combination of linear and nonlinear stabilization seems to be the winning choice, since the former is an accurate method with optimal convergence properties that is effective on smooth regions whereas the latter reduces (or eliminates) oscillations around shocks or discontinuities. In par\-ti\-cular, when using nonlinear artificial viscosity without any linear stabilization, it is common to observe the \emph{terracing effect}, which consists in ``a distortion of smooth profiles and represents an integrated, nonlinear effect of residual phase error'' \cite{kuzmin_flux-corrected_2005,oran_numerical_2005}. However, the combination of linear
+When it comes to continuous Galerkin and artificial diffusion stabilization techniques, the combination of linear and nonlinear stabilization seems to be the winning choice, since the former is an accurate method with optimal convergence properties that is effective on smooth regions whereas the latter reduces (or eliminates) oscillations around shocks or discontinuities. In par\-ti\-cular, when using nonlinear artificial viscosity without any linear stabilization, it is common to observe the \emph{terracing effect}, which consists in ``a distortion of smooth profiles and represents an integrated, nonlinear effect of residual phase error'' \cite{kuzmin_flux-corrected_2005,oran_numerical_2005}. However, the combination of linear
 and non\-li\-near stabilization must be carried out with care. A naive combination of an 
 optimally convergent linear stabilization and a monotonicity-preserving nonlinear
 stabilization can produce a method with none of these properties. It has recently been 
